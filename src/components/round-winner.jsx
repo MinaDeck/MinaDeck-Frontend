@@ -1,24 +1,26 @@
-import useSWR from 'swr'
-import stateFetcher from '@/fetcher/state'
-import { useCurrentGameRoom } from '@/hooks/use-game-room'
-import { useState, useEffect } from 'react'
-import Player from './player'
-import classNames from 'classnames'
+import useSWR from 'swr';
+import stateFetcher from '@/fetcher/state';
+import { useState, useEffect } from 'react';
+import Player from './player';
+import classNames from 'classnames';
 
 export default function RoundWinner() {
-  const { data: gamePlayersCard, mutate: gamePlayersCardMutate } = useSWR('local:gamePlayersCard', stateFetcher)
-  const { data: roundWinner, mutate: roundWinnerMutate } = useSWR('local:roundWinner', stateFetcher)
-  const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
+  // Fetch game data using SWR for various game states
+  const { data: gamePlayersCard, mutate: gamePlayersCardMutate } = useSWR('local:gamePlayersCard', stateFetcher);
+  const { data: roundWinner, mutate: roundWinnerMutate } = useSWR('local:roundWinner', stateFetcher);
+  const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher);
 
+  // Clear roundWinner data after a set time
   useEffect(() => {
-    if(roundWinner) {
+    if (roundWinner) {
       setTimeout(() => {
-        stateFetcher('local:roundWinner', null).then(roundWinnerMutate)
-      }, roundWinner?.animationSecond || 6000)
+        stateFetcher('local:roundWinner', null).then(roundWinnerMutate);
+      }, roundWinner?.animationSecond || 6000);
     }
-  }, [ roundWinner ])
+  }, [roundWinner]);
 
-  const winner = gameUsers?.find(u => u.userId === roundWinner?.userId)
+  // Find the winner from the gameUsers data
+  const winner = gameUsers?.find(u => u.userId === roundWinner?.userId);
 
   return (
     <div className={classNames(
@@ -26,8 +28,9 @@ export default function RoundWinner() {
       winner ? 'opacity-100' : 'opacity-0',
       winner ? 'pointer-events-auto' : 'pointer-events-none'
     )}>
+      {/* Display the winner's player component if a winner is present */}
       {roundWinner && <Player
-        style={{left:360, top:330}}
+        style={{left: 360, top: 330}}
         showAuto={false}
         showBitChips={false}
         user={winner}
@@ -35,5 +38,5 @@ export default function RoundWinner() {
         cards={gamePlayersCard?.[winner?.userId]}
       />}
     </div>
-  )
+  );
 }
