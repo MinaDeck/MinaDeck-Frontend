@@ -34,7 +34,12 @@ MinaPoker is a decentralized poker game built on the MINA blockchain. It leverag
 
 ## Usage
 
-1. Clone the repository:
+Clone the repository and run:
 
 ```bash
-git clone https://github.com/yourusername/MinaPoker.git
+git clone https://github.com/MinaPoker/PokerFrontend
+
+cd MinaPoker
+npm install
+
+npm run dev
