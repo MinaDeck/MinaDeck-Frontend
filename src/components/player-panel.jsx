@@ -1,7 +1,6 @@
 import stateFetcher from '@/fetcher/state'
 import useSWR from 'swr'
 import Player from './player'
-import useLocalStorageState from 'use-local-storage-state'
 import StyledButton from './styled-button'
 import { useCurrentGameRoom } from '@/hooks/use-game-room'
 

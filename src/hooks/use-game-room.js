@@ -96,7 +96,7 @@ export function useGameRoom(gameId, token) {
 
 // Custom hook for obtaining the current game room based on user information
 export function useCurrentGameRoom() {
-  const [userInfo] = useLocalStorageState('userinfo')
+  const [userInfo] = useState('userinfo')
   // Get the 'gameId' from the URL search parameters
   const gameId = useSearchParams().get('gameId')
 

@@ -1,7 +1,6 @@
 'use client'
 import classNames from 'classnames'
 import Link from 'next/link'
-import useLocalStorageState from 'use-local-storage-state'
 import WithSignined from '@/app/with-signin'
 import { useRouter } from 'next/navigation'
 import { displayAddress } from '@/util'

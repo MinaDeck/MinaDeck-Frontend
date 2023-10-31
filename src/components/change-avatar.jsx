@@ -1,7 +1,6 @@
 import FrameBox from './frame-box'
 import StyledButton from './styled-button'
 import useSWR from 'swr'
-import useLocalStorageState from 'use-local-storage-state'
 import { useState, useEffect } from 'react'
 import classNames from 'classnames'
 
@@ -17,7 +16,7 @@ async function fetcher(url) {
 }
 
 export default function ChangeAvatar({ onClose }) {
-  const [ user ] = useLocalStorageState('userinfo', { defaultValue: { id: -1 } })
+  // const [ user ] = useLocalStorageState('userinfo', { defaultValue: { id: -1 } })
 
   const { data: userInfo, mutate: userInfoMutate } = useSWR(user.token ? `http://162.219.87.221/api/user/getUserInfo?token=${user.token}` : '', fetcher)
   const { data: headList } = useSWR(user.token ? `http://162.219.87.221/api/user/headList?token=${user.token}` : '', fetcher)

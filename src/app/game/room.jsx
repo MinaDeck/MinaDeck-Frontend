@@ -4,7 +4,6 @@ import useSWR from 'swr'
 import { animated, useSpring, to } from '@react-spring/web'
 import stateFetcher from '@/fetcher/state'
 import { useEffect, useRef, useState, useCallback } from 'react'
-import useLocalStorageState from 'use-local-storage-state'
 import PK from '@/components/pk'
 import classNames from 'classnames'
 import { useGameRoom } from '@/hooks/use-game-room'
@@ -18,8 +17,6 @@ import { encodeBs58 } from '@/util'
 import GameInfo from '@/components/game-info'
 
 export default function GameRoom({ gameId }) {
-  // Manage user information using local storage state
-  const [userInfo, setUserInfo] = useLocalStorageState('userinfo')
 
   // Use SWR to fetch and manage local game-related data
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)

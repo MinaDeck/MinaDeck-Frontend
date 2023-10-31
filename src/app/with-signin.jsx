@@ -1,7 +1,6 @@
 'use client'
 import StyledButton from '@/components/styled-button'
 import { useRef, useEffect, useState } from 'react'
-import useLocalStorageState from 'use-local-storage-state'
 import aleoFetcher from '@/fetcher/aleo'
 import WalletInfo from '@/components/wallet-info'
 import useSWR from 'swr'
@@ -9,8 +8,7 @@ import useSWR from 'swr'
 export default function WithSignined({
   children
 }) {
-  const [ userInfo, setUserInfo ] = useLocalStorageState('userinfo', { defaultValue: { id: -1 } })
-  // const [ userInfo, setUserInfo ] = useState(null)
+  const [ userInfo, setUserInfo ] = useState(null)
   const { data: walletAccount, mutate: walletAccountMutate } = useSWR('walletAccount', aleoFetcher)
   const { data: walletConnected, mutate: walletConnectedMutate } = useSWR('walletConnected', aleoFetcher)
   const [ autoConnect, setAutoConnect ] = useState(false)
