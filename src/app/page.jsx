@@ -3,7 +3,6 @@ import StyledButton from '@/components/styled-button'
 import { useRef, useEffect, useState } from 'react'
 import aleoFetcher from '@/fetcher/aleo'
 import WalletInfo from '@/components/wallet-info'
-import useSWR from 'swr'
 import Link from 'next/link'
 
 const Home = () => {
