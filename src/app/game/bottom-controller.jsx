@@ -34,8 +34,6 @@ function BlankChip({ index = 0, checked, setChecked }) {
 
   const value = listBetChips?.[index]
   const allowControl = value > gameCurrentBetChips
-
-  
   return (
     <div
       className={classNames(
@@ -64,7 +62,6 @@ function BlankChip({ index = 0, checked, setChecked }) {
       </div>
     </div>
   )
-  console.log("Game server:- ",gameServer)
 }
 
 export default function BottomController() {
@@ -91,7 +88,7 @@ export default function BottomController() {
             onClick={() => {
               gameServer.send({ type: 3, currRound: gameRoom.currRound, isAutoBet: gamePlayerInfo.isAutoBet })
             }}
-          ><div className='h-10 inline-flex items-center'>FOLD</div> </StyledButton>
+          ><div className='h-10 inline-flex items-center'>FOLD</div></StyledButton>
         </div>
         <div>
           <StyledButton className={classNames('bg-[rgb(255,150,0)] transition-transform', showChipPanel ? 'translate-y-40' : 'translate-y-0')}
@@ -133,7 +130,7 @@ export default function BottomController() {
           </button>
         </div>
       </div>
-          
+
 
       <div className={classNames(
         'w-full h-full absolute -left-50 bottom-0 pb-2 transform-gpu transition-transform bg-no-repeat bg-bottom bg-[url("/table_bottom.png")] flex items-end justify-center gap-2',

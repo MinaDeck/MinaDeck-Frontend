@@ -9,7 +9,7 @@ export default function GamePage() {
   const searchParams = useSearchParams();
   const gameId = searchParams.get('gameId');
   const { gameData } = useGameData();
-  console.log("gameData on game page:",gameId, gameData);
+  console.log("gameData on game page:", gameData);
 
 
   if (!gameId || !/^[a-f\d]{8}$/i.test(gameId)) {

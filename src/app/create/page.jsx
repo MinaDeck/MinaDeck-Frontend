@@ -1,8 +1,11 @@
 'use client'
+import { UserCircleIcon, PhotoIcon } from '@heroicons/react/24/solid'
 // import WithSignined from './with-signin'
+import { RadioGroup } from '@headlessui/react'
 import { useCallback, useEffect, useState, useRef } from 'react'
 import classNames from 'classnames'
 import { useRouter } from 'next/navigation'
+import useLocalStorageState from 'use-local-storage-state'
 import StyledButton from '@/components/styled-button'
 import SVGText from '@/components/svg-text'
 import NavigationToolbar from '@/components/navigation-toolbar'
@@ -11,7 +14,7 @@ import { encodeBs58 } from '@/util'
 import ShareLink from '@/components/share-link'
 import { useGameData } from '@/hooks/useGameData'
 
-// Main component for creating a game
+
 export default function CreateGamePage() {
 
     const router = useRouter()
@@ -26,7 +29,6 @@ export default function CreateGamePage() {
     const [handleSubmitState, setHandleSubmitState] = useState(false)
     const [coLoading, setCoLoading] = useState(false);
 
-    // Function to handle game creation
     const handleCreateGame = async () => {
         setCoLoading(true);
         console.log("input data", minimum, lowBetChips, topBetChips, totalRounds, gameId);
@@ -48,7 +50,6 @@ export default function CreateGamePage() {
         }, 2000);
     };
 
-    // JSX structure for the component
     return (
         <>
             <div className='bg-white w-[1280px] h-[720px] overflow-hidden mx-auto my-8 px-4 py-2 rounded-lg bg-cover bg-[url("/bg-2.jpg")] relative shadow-[0_0_20px_rgba(0,0,0,0.8)]'>
@@ -62,7 +63,7 @@ export default function CreateGamePage() {
                     <div className='text-white font-black text-right text-6xl'>CREATE A GAME</div>
                     <div className='text-white font-black text-right'>
                         Choose the settings for you new match.<br />
-                        The power's in your hands.
+                        The power in your hands.
                     </div>
 
                     <div className='text-right'>
@@ -148,17 +149,15 @@ export default function CreateGamePage() {
 }
 
 
-// Range input component for sliders
+
 
 function MyRange({
     min = 1, max, className, step = 1, value,
     onChange = () => { }
 }) {
-    // Refs for input and value elements
     const inputRef = useRef(null)
     const valueRef = useRef(null)
 
-    // Function to handle range input change
     const changeHandle = useCallback(({ target }) => {
         const { min, max, value } = target
         const v = (value - min) / (max - min)
@@ -166,12 +165,10 @@ function MyRange({
         onChange(Number(value))
     }, [inputRef.current, valueRef.current])
 
-    // Effect to update value on mount
     useEffect(() => {
         changeHandle({ target: inputRef.current })
     }, [inputRef.current, valueRef.current])
 
-    // JSX structure for the range input
     return (
         <div className='w-full relative h-4 select-none cursor-pointer translate-y-1'>
             <div className='absolute inset-0 bg-black/30 rounded-full shadow-[inset_0_0_10px_0_rgba(0,0,0,.8)]'>

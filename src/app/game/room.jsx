@@ -4,6 +4,8 @@ import useSWR from 'swr'
 import { animated, useSpring, to } from '@react-spring/web'
 import stateFetcher from '@/fetcher/state'
 import { useEffect, useRef, useState, useCallback } from 'react'
+import useLocalStorageState from 'use-local-storage-state'
+import Dialog from '@/components/dialog'
 import PK from '@/components/pk'
 import classNames from 'classnames'
 import { useGameRoom } from '@/hooks/use-game-room'
@@ -17,8 +19,8 @@ import { encodeBs58 } from '@/util'
 import GameInfo from '@/components/game-info'
 
 export default function GameRoom({ gameId }) {
+  const [userInfo, setUserInfo] = useLocalStorageState('userinfo')
 
-  // Use SWR to fetch and manage local game-related data
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
@@ -34,23 +36,17 @@ export default function GameRoom({ gameId }) {
   const { data: currentChipIndex, mutate: currentChipIndexMutate } = useSWR('local:currentChipIndex', stateFetcher)
   const { data: allowPK, mutate: allowPKMutate } = useSWR('local:allowPK', stateFetcher)
 
-  // Establish a socket connection to the game server
+
   const gameServer = useGameRoom(gameId)
-  console.log("gameserver :- ", gameServer)
 
   useEffect(() => {
-    // Handle various game events received from the server
     const state = gameServer?.data ?? {}
-    console.log("state is :- ",state)
 
     if (state.code === 10012) {
-      // Handle a specific event code (e.g., user disconnected)
       setUserInfo({ id: -1 })
     }
 
     if (state.msgType === 0) {
-      // Handle different game-related events
-      // Update local state and trigger mutations for game data
       stateFetcher('local:gameRoom', state.room).then(gameRoomMutate)
       const currentPlayer = state.users.find(v => v.userId === userInfo.id)
 
@@ -68,11 +64,8 @@ export default function GameRoom({ gameId }) {
       if (state.event) {
         const { event } = state
         if (event.type === 0) {
-          // Handle different game-related events
-          // Update local state and trigger mutations for game data
           console.log(`event${event.type} gamer #${event.userId} Join game (or broadcast if the message is notified) - > the user state`, event)
         } else if (event.type === 1) {
-          // Handle another type of game event
           console.log(`event${event.type} gamer #${event.userId} Prepare the game - > the user state`, event)
         } else if (event.type === 2) {
           console.log(`event${event.type} gamer #${event.userId} In-game - > user status`, event)
@@ -191,8 +184,6 @@ export default function GameRoom({ gameId }) {
       stateFetcher('local:gameMessages', [...(gameMessages ?? []), state.message]).then(gameMessagesMutate)
     }
   }, [gameServer.data])
-  console.log("gamePlayerInfo", gamePlayerInfo)
-
 
   return (
     <>
@@ -205,8 +196,8 @@ export default function GameRoom({ gameId }) {
         <NavigationToolbar />
         <GameInfo />
 
-        <BottomController> </BottomController>
-        <PlayerPanel> </PlayerPanel>
+        <BottomController></BottomController>
+        <PlayerPanel></PlayerPanel>
         <div className='chips-tabled-panel absolute top-[125px] left-1/2 w-[220px] h-[220px] -translate-x-1/2 pointer-events-none'>
           <div className='flex items-center justify-center h-full'>
             {tabledChips?.map?.(({ from, to, value, colorIndex }, index) => <ValuedChips key={`table_chips_${index}`} from={from} to={to} value={value} colorIndex={colorIndex} />)}

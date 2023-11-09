@@ -1,4 +1,3 @@
-
 'use client'
 import { useState, useEffect } from 'react';
 
@@ -10,17 +9,24 @@ export function useGameData() {
         const storedGameData = localStorage.getItem('gameData');
 
         if (storedGameData) {
-            setGameData(JSON.parse(storedGameData));
+            setGameData(prevGameData => ({ ...prevGameData, ...JSON.parse(storedGameData) }));
+            console.log('Game data loaded from local storage 2', JSON.parse(storedGameData));
         }
     }, []);
 
     // Save data to local storage when it changes
     useEffect(() => {
-        localStorage.setItem('gameData', JSON.stringify(gameData));
+        if (!gameData.size == 0) {
+            localStorage.setItem('gameData', JSON.stringify(gameData));
+            console.log('Game data saved to local storage 1', gameData);
+        }
+
+        // Use the callback version of setGameData to ensure you're working with the latest state
+        setGameData(prevGameData => prevGameData);
     }, [gameData]);
 
     return {
         gameData,
         setGameData,
     };
-};
+}

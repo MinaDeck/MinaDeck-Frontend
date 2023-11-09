@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import aleoFetcher from '@/fetcher/aleo'
 import { useEffect, useState } from 'react'
+import useLocalStorageState from 'use-local-storage-state'
 
 function displayAddress(address) {
   if(address) {
@@ -11,6 +12,7 @@ function displayAddress(address) {
 
 export default function WalletInfo() {
   const { data: walletAccount, mutate: walletAccountMutate } = useSWR('walletAccount', aleoFetcher)
+  const [ userInfo, setUserInfo ] = useLocalStorageState('userinfo')
 
   return (
     <div className='absolute right-0 -top-3 h-12 -translate-y-full flex'>
