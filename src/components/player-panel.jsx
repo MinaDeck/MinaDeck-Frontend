@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import Player from './player'
 import StyledButton from './styled-button'
 import { useCurrentGameRoom } from '@/hooks/use-game-room'
+import { useState } from 'react'
 
 
 export default function PlayerPanel() {
@@ -11,9 +12,11 @@ export default function PlayerPanel() {
   const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
   const { data: gameCountdown, mutate: gameCountdownMutate } = useSWR('local:gameCountdown', stateFetcher)
   
-  const currentUserLocation = gamePlayerInfo?.location
+  // const currentUserLocation = gamePlayerInfo?.location
 
-  const showPK = gameCountdown && gamePlayerInfo && gameCountdown.userId === gamePlayerInfo.userId
+  // const showPK = gameCountdown && gamePlayerInfo && gameCountdown.userId === gamePlayerInfo.userId
+  const showPK = false
+  const currentUserLocation = 0
 
   return (
     <div className='relative'>
@@ -29,7 +32,8 @@ export default function PlayerPanel() {
 }
 
 function Player1() {
-  const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
+  // const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
+  const [gamePlayerInfo, gamePlayerInfoMutate] = useState({ userId: '1', state: 0, isBanker: true })
   const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: gamePlayersCard, mutate: gamePlayerCardMutate } = useSWR('local:gamePlayersCard', stateFetcher)
@@ -43,7 +47,8 @@ function Player1() {
       avatar={1}
       x={x} y={y}
       style={ { left: x, top: y } }
-      user={gamePlayerInfo}
+      user="Player 1"
+      // user={gamePlayerInfo}
       isCurrentPlayer={true}
       cards={gamePlayersCard?.[gamePlayerInfo?.userId]}
     >
@@ -53,7 +58,7 @@ function Player1() {
             [0,3,4,5].includes(gamePlayerInfo?.state) && <StyledButton roundedStyle='rounded-full' className='bg-[#ff9000]' onClick={ () => { gameServer.send({ type: 0, currRound: gameRoom.currRound }) } }>READY</StyledButton>
           }
           {
-            gamePlayerInfo.isBanker && gameRoom.state === 0 && gameUsers.filter(u => u.state === 1).length >= gameRoom.minimum && <StyledButton roundedStyle='rounded-full' disabled={!(gamePlayerInfo?.state === 1 && gamePlayerInfo.isBanker && gameUsers.filter(u => u.state === 1).length >= gameRoom.minimum - 1)} onClick={ () => { gameServer.send({ type: 1, currRound: gameRoom.currRound }) } }>START</StyledButton>
+            gamePlayerInfo.isBanker && gamePlayerInfo.state === 0 && <StyledButton roundedStyle='rounded-full' disabled={!(gamePlayerInfo?.state === 1 && gamePlayerInfo.isBanker && gameUsers.filter(u => u.state === 1).length >= gameRoom.minimum - 1)} onClick={ () => { gameServer.send({ type: 1, currRound: gameRoom.currRound }) } }>START</StyledButton>
           }
           {/* <StyledButton className='bg-[rgb(255,144,0)]' roundedStyle='rounded-full'
             onClick={ async () => { gameServer.send({ type: 2, currRound: gameRoom.currRound }) } }

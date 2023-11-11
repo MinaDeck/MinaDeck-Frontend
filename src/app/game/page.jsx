@@ -6,7 +6,7 @@ import { useGameData } from '@/hooks/useGameData';
 
 
 export default function GamePage() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams(); 
   const gameId = searchParams.get('gameId');
   const { gameData } = useGameData();
   console.log("gameData on game page:", gameData);

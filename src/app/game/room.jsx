@@ -6,7 +6,7 @@ import stateFetcher from '@/fetcher/state'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import useLocalStorageState from 'use-local-storage-state'
 import Dialog from '@/components/dialog'
-import PK from '@/components/pk'
+import PK from '@/components/pk' 
 import classNames from 'classnames'
 import { useGameRoom } from '@/hooks/use-game-room'
 import BottomController from './bottom-controller'
@@ -17,12 +17,16 @@ import GlobalTips from '@/components/global-tips'
 import aleoFetcher from '@/fetcher/aleo'
 import { encodeBs58 } from '@/util'
 import GameInfo from '@/components/game-info'
+import { useGameData } from '@/hooks/useGameData';
 
 export default function GameRoom({ gameId }) {
   const [userInfo, setUserInfo] = useLocalStorageState('userinfo')
+  const { gameData } = useGameData();
+  console.log("gameData on room:", gameData);
 
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
-  const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
+  // const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
+  const [gameUsers, gameUsersMutate] = useState(gameData?.size)
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
   const { data: gameMessages, mutate: gameMessagesMutate } = useSWR('local:gameMessages', stateFetcher)
   const { data: gamePlayersCard, mutate: gamePlayersCardMutate } = useSWR('local:gamePlayersCard', stateFetcher)
