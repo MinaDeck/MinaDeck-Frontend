@@ -6,16 +6,7 @@ import { useGameData } from '@/hooks/useGameData';
 export default function GameInfo() {
   const { gameData } = useGameData();
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
-  const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher)
-  const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
-  const { data: gameMessages, mutate: gameMessagesMutate } = useSWR('local:gameMessages', stateFetcher)
-  const { data: gamePlayersCard, mutate: gamePlayersCardMutate } = useSWR('local:gamePlayersCard', stateFetcher)
-  const { data: gameCountdown, mutate: gameCountdownMutate } = useSWR('local:gameCountdown', stateFetcher)
-  const { data: gamePK, mutate: gamePKMutate } = useSWR('local:gamePK', stateFetcher)
   const { data: tabledChips, mutate: tabledChipsMutate } = useSWR('local:tabledChips', stateFetcher)
-  const { data: roundResult, mutate: roundResultMutate } = useSWR('local:roundResult', stateFetcher)
-  const { data: gameCurrentBetChips, mutate: gameCurrentBetChipsMutate } = useSWR('local:gameCurrentBetChips', stateFetcher)
-  const { data: roundWinner, mutate: roundWinnerMutate } = useSWR('local:roundWinner', stateFetcher)
   
   return (
     <div className='absolute top-0 w-full font-bold text-gray-700 left-0 text-center'>
