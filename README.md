@@ -53,6 +53,39 @@ MinaPoker is committed to promoting responsible gaming, encouraging moderation t
 ## Conclusion
 MinaPoker is not just a gaming platform; it's a revolution in the online poker world. It seamlessly blends the excitement of poker with the advanced security of blockchain technology, offering a unique, fair, and engaging gaming experience. This platform stands as a testament to the innovative application of technology in enhancing online gaming, making it more secure, transparent, and accessible to a global audience.
 
+## Future milestones to achieve
+MinaPoker 6-Month Milestones
+1) Platform Beta Launch (Month 1-2):
+
+- Release a beta version of MinaPoker for a limited user group to gather feedback.
+Conduct thorough testing of the platform's functionality, including AuroWallet integration, table creation, and gameplay.
+
+2) Security Enhancement (Month 2-3):
+
+- Implement additional security measures based on beta testing feedback.
+Conduct external security audits to identify and address potential vulnerabilities.
+
+3) User Interface Optimization (Month 3-4):
+
+- Refine and optimize the user interface based on user feedback and usability testing.
+- Ensure a seamless and intuitive experience for both novice and experienced players.
+
+4) Expanded Game Formats (Month 4-5):
+
+- Introduce new game formats, such as Sit N Go's, to diversify the gaming experience.
+- Adjust smart contracts and game logic to accommodate the new formats.
+
+5) Scalability Improvements (Month 5-6):
+
+- Enhance the platform's scalability to accommodate a growing user base.
+Optimize backend processes to handle increased transaction volume and user interactions.
+
+6) Full Platform Launch and Marketing (Month 6):
+
+- Officially launch the full version of MinaPoker to the public.
+- Initiate marketing campaigns to promote the platform's unique features, emphasizing security, transparency, and diverse gameplay options.
+- Implement responsible gaming features prominently, showcasing the commitment to user well-being.
+
 ## Usage
 
 Clone the repository and run:
