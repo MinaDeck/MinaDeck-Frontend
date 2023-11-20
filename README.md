@@ -27,7 +27,7 @@ MinaPoker represents a groundbreaking approach in the online poker industry, mer
 - **Blockchain Communication**: Facilitates interaction between the frontend and the MINA blockchain.
 - **Session Management**: Manages user sessions for seamless transitions across the platform.
 
-### Smart Contracts (zk-SNARKs with o1js)
+### Smart Contracts (zk-Proofs with o1js)
 - **Game Logic**: Implements the core poker game rules and mechanics, deploying these on the MINA blockchain for decentralized execution.
 
 ### MINA Blockchain
