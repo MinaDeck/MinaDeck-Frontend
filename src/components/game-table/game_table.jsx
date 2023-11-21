@@ -1,9 +1,30 @@
-import React from 'react'
+// GameTable.jsx
+import React from 'react';
 
-function game_table() {
+const GameTable = ({ players, cards }) => {
+  // Render the game table with player information and cards
   return (
-    <div>game_table</div>
-  )
-}
+    <div className="game-table">
+      {/* Display player information and cards */}
+      <div className="player-info">
+        {players.map((player, index) => (
+          <div key={index} className="player">
+            <span>{player.name}</span>
+            <span>Chips: {player.chips}</span>
+          </div>
+        ))}
+      </div>
 
-export default game_table
+      {/* Display cards on the table */}
+      <div className="table-cards">
+        {cards.map((card, index) => (
+          <div key={index} className="card">
+            {card}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default GameTable;
