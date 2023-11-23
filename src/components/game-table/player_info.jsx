@@ -1,7 +1,7 @@
 // PlayerInfo.jsx
 import React from 'react';
 
-const PlayerInfo = ({ name, chips, cards }) => {
+const PlayerInfo = ({ name, chips, cards, action }) => {
   return (
     <div className="player-info">
       <div className="player-name">{name}</div>
@@ -13,6 +13,7 @@ const PlayerInfo = ({ name, chips, cards }) => {
           </div>
         ))}
       </div>
+      <div className="player-action">Action: {action}</div>
     </div>
   );
 };
