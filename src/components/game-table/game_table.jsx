@@ -1,19 +1,23 @@
 // GameTable.jsx
 import React from 'react';
+import PlayerInfo from './PlayerInfo';
+import WinningBoard from './WinningBoard';
 
-const GameTable = ({ players, cards }) => {
-  // Render the game table with player information and cards
+const GameTable = ({ players, cards, winners }) => {
   return (
     <div className="game-table">
+      <WinningBoard winners={winners} />
+
       {/* Display player information and cards */}
-      <div className="player-info">
-        {players.map((player, index) => (
-          <div key={index} className="player">
-            <span>{player.name}</span>
-            <span>Chips: {player.chips}</span>
-          </div>
-        ))}
-      </div>
+      {players.map((player, index) => (
+        <PlayerInfo
+          key={index}
+          name={player.name}
+          chips={player.chips}
+          cards={player.cards}
+          action={player.action}
+        />
+      ))}
 
       {/* Display cards on the table */}
       <div className="table-cards">
