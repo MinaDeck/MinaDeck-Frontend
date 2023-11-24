@@ -3,7 +3,7 @@ import React from 'react';
 import PlayerInfo from './PlayerInfo';
 import WinningBoard from './WinningBoard';
 
-const GameTable = ({ players, cards, winners }) => {
+const GameTable = ({ players, cards, winners, leaderboard }) => {
   return (
     <div className="game-table">
       <WinningBoard winners={winners} />
@@ -16,8 +16,21 @@ const GameTable = ({ players, cards, winners }) => {
           chips={player.chips}
           cards={player.cards}
           action={player.action}
+          chipsWon={player.chipsWon}
         />
       ))}
+
+      {/* Display chips won in the leaderboard */}
+      <div className="leaderboard">
+        <h2>Leaderboard</h2>
+        <ul>
+          {leaderboard.map((entry, index) => (
+            <li key={index}>
+              {entry.player}: {entry.chipsWon} Chips
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Display cards on the table */}
       <div className="table-cards">
