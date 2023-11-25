@@ -76,7 +76,11 @@ export const formatDollar = (value) => {
 };
 
 // Constant representing the separator for options
+<<<<<<< HEAD
 export const optionSeparator = "-&&&&&-";
+=======
+export const optionSeparator = '-&&&&&-';
+>>>>>>> 3b11ef7a2075cdf25d98b24f1c4cd6eda6c376d5
 
 // Function to display a truncated version of an address
 export function displayAddress(address = '') {

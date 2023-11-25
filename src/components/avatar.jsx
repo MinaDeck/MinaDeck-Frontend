@@ -6,7 +6,7 @@ const avatarSet = {}
 
 for(let i = 0; i <= 20; i++) {
   const w = (i + 1) % 8
-  const h = Math.floor((i + 1) / 😍
+  const h = Math.floor((i + 1) / 8)
   avatarSet[i] = (
     <div className='absolute inset-0 bg-[url("/avatars.png")] bg-no-repeat rounded-full' style={ {
       backgroundPositionX: -26 - (136 * w),
@@ -45,8 +45,8 @@ export default function Avatar({
   const [ remain, setRemain ] = useState(duration)
   const vvv = useDeferredValue(remain)
   const p = (1 - vvv / duration) * 100
-  const backgroundImage = showCountdown ? conic-gradient(transparent ${p}%, rgb(234,179,8) ${p}%, rgb(22,163,74) 100%) : 'none'
-  
+  const backgroundImage = showCountdown ? `conic-gradient(transparent ${p}%, rgb(234,179,8) ${p}%, rgb(22,163,74) 100%)` : 'none'
+
   useEffect(() => {
     if(showCountdown) {
       requestAnimationFrame(() => {
