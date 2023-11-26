@@ -6,7 +6,7 @@ import PlayingCard from './cards'
 import { displayAddress } from '@/util'
 import { useCurrentGameRoom } from '@/hooks/use-game-room'
 
-
+// Defines the Player component with props for avatar, user, game state, etc.
 export default function Player({
   avatar = 0,
   user = {},
@@ -26,6 +26,7 @@ export default function Player({
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
   const { data: gameCurrentBetChips, mutate: gameCurrentBetChipsMutate } = useSWR('local:gameCurrentBetChips', stateFetcher)
 
+// Accessing game room and server-related information
   const gameServer = useCurrentGameRoom()
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: allowPK, mutate: allowPKMutate } = useSWR('local:allowPK', stateFetcher)
