@@ -1,20 +1,23 @@
-// Importing the global CSS styles
+// Importing global CSS styles to ensure consistent styling across the application
 import '@/styles/global.css'
 
-// Metadata object to define the title and description of the application
+// Metadata object defining essential details of the application for better SEO and user understanding
 export const metadata = {
-  title: 'card poker', // Title of the application
-  description: '...', // Description of the application, replace '...' with actual description
+  title: 'Card Poker', // Title of the application, displayed in browser tabs and search results
+  description: 'A thrilling and immersive online card poker game experience.', // A brief description of the application's purpose and features
 }
 
-// The RootLayout component that will wrap around other components in your application
+// The RootLayout component acts as the main wrapper for all other components in the application.
+// This pattern is useful for applying consistent layout or styles across various pages or components.
 export default function RootLayout({
-  children // Props passed to the component, typically the child components
+  children // Children props, representing the components nested inside RootLayout
 }) {
   return (
     <html>
       <body className='bg-cover bg-[url("/bg.png")]'>
-        {/* The children components will be rendered here. The body has a background cover with an image. */}
+        {/* Here, the children components are rendered inside the body tag.
+             The body is styled with a full cover background image,
+             providing a visually appealing base for the application's content. */}
         {children}
       </body>
     </html>
