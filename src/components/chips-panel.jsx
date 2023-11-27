@@ -22,6 +22,10 @@ export default function ChipsPanel() {
       // List of SelectableChips components with different values
       <SelectableChips value={50} />
       <SelectableChips value={100} />
+      <SelectableChips value={200} />
+      <SelectableChips value={500} />
+      <SelectableChips value={1000} />
+      <SelectableChips value={5000} />
       // ... More chips with different values ...
     </div>
   )
