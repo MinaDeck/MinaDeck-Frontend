@@ -9,15 +9,13 @@ import { useRouter } from 'next/navigation'
 
 
 export default function RoundResult({ onClose }) {
-  const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
-  const { data: gamePlayersCard, mutate: gamePlayersCardMutate } = useSWR('local:gamePlayersCard', stateFetcher)
   const { data: gamePK, mutate: gamePKMutate } = useSWR('local:gamePK', stateFetcher)
   const { data: roundResult, mutate: roundResultMutate } = useSWR('local:roundResult', stateFetcher)
   const { data: roundWinner, mutate: roundWinnerMutate } = useSWR('local:roundWinner', stateFetcher)
 
-  const gameServer = useCurrentGameRoom()
-  const router = useRouter()
+  // const gameServer = useCurrentGameRoom()
+  // const router = useRouter()
 
   if(roundResult?.isGameOver && roundResult?.records) {
     return (
