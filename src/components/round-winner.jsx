@@ -5,37 +5,37 @@ import Player from './player';
 import classNames from 'classnames';
 
 export default function RoundWinner() {
-  // Fetch game data using SWR for various game states
-  const { data: gamePlayersCard, mutate: gamePlayersCardMutate } = useSWR('local:gamePlayersCard', stateFetcher);
+  // Using SWR to fetch game data related to players' cards, round winner, and game users
+  const { data: gamePlayersCard } = useSWR('local:gamePlayersCard', stateFetcher);
   const { data: roundWinner, mutate: roundWinnerMutate } = useSWR('local:roundWinner', stateFetcher);
-  const { data: gameUsers, mutate: gameUsersMutate } = useSWR('local:gameUsers', stateFetcher);
+  const { data: gameUsers } = useSWR('local:gameUsers', stateFetcher);
 
-  // Clear roundWinner data after a set time
+  // Clearing the roundWinner data after a certain duration
   useEffect(() => {
     if (roundWinner) {
       setTimeout(() => {
         stateFetcher('local:roundWinner', null).then(roundWinnerMutate);
-      }, roundWinner?.animationSecond || 6000);
+      }, roundWinner?.animationSecond || 6000); // Default to 6000ms if animationSecond is not specified
     }
   }, [roundWinner]);
 
-  // Find the winner from the gameUsers data
+  // Finding the winner's user data from the gameUsers array
   const winner = gameUsers?.find(u => u.userId === roundWinner?.userId);
 
+  // Returning a styled div that conditionally renders based on the presence of a winner
   return (
     <div className={classNames(
-      'absolute inset-0 z-[3] bg-[url("/round-winner.png")] bg-black/50 bg-no-repeat bg-[0_50px]',
-      winner ? 'opacity-100' : 'opacity-0',
-      winner ? 'pointer-events-auto' : 'pointer-events-none'
+      'round-winner-container', // Styling for the round winner overlay
+      winner ? 'visible' : 'hidden' // Conditional classes based on winner presence
     )}>
-      {/* Display the winner's player component if a winner is present */}
+      {/* Render Player component if a winner is found */}
       {roundWinner && <Player
-        style={{left: 360, top: 330}}
-        showAuto={false}
+        style={{ left: 360, top: 330 }} // Inline styling for player position
+        showAuto={false} // Props passed to Player component
         showBitChips={false}
         user={winner}
         isCurrentPlayer={true}
-        cards={gamePlayersCard?.[winner?.userId]}
+        cards={gamePlayersCard?.[winner?.userId]} // Passing winner's cards to Player component
       />}
     </div>
   );
