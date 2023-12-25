@@ -25,7 +25,6 @@ export default function WalletInfo() {
      <div className='bg-[#8170bb] rounded-xl mr-2 relative pl-12 shadow-[0_0_10px_0_rgba(0,0,0,.8),inset_0_1px_1px_0_rgba(255,255,255,.2)]'>
        <div className='bg-[url("/wallet-icon.png")] absolute -left-8 -top-6 w-20 h-20'></div>
        <div className='flex justify-center items-center p-1.5 gap-2'>
-         // Displaying the balance of the wallet account
          <div className='text-white'>${walletAccount?.balance ?? userInfo?.walletAccount?.balance}</div>
          <div className='bg-[#7564ad] relative flex items-center h-9 pr-12 pl-5 rounded-full shadow-[0_1px_0_0_rgba(255,255,255,.1),inset_0_0_6px_0_rgba(255,255,255,.1)]
            after:bg-[url("/wallet-icon2.png")] after:bg-no-repeat after:h-full after:w-8 after:absolute after:right-0.5 after:top-0.5
