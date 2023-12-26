@@ -1,23 +1,25 @@
-// Importing the global CSS file to apply common styles throughout the application
+// Importing global CSS styles to ensure consistent styling across the application
 import '@/styles/global.css'
 
-// Setting up metadata for the application to improve search engine optimization (SEO)
-// and provide meaningful information in browser tabs and search results
+// Metadata object defining essential details of the application for better SEO and user understanding
 export const metadata = {
-  title: 'Card Poker', // The title of the application
-  description: 'A thrilling and immersive online card poker game experience.', // Short description of the application
+  title: 'Card Poker', // Title of the application, displayed in browser tabs and search results
+  description: 'A thrilling and immersive online card poker game experience.', // A brief description of the application's purpose and features
 }
 
-// The RootLayout functional component acts as a container for all child components
-// that will be rendered within the application's body
+// The RootLayout component acts as the main wrapper for all other components in the application.
+// This pattern is useful for applying consistent layout or styles across various pages or components.
 export default function RootLayout({
-  children // React children prop for rendering nested components
+  children // Children props, representing the components nested inside RootLayout
 }) {
   return (
-    // The HTML structure of the RootLayout component
     <html>
-      {/* The body tag contains the application's global background and displays all child components */}
-      <body className='bg-cover bg-[url("/bg.png")]'>{children}</body>
+      <body className='bg-cover bg-[url("/bg.png")]'>
+        {/* Here, the children components are rendered inside the body tag.
+             The body is styled with a full cover background image,
+             providing a visually appealing base for the application's content. */}
+        {children}
+      </body>
     </html>
   )
 }

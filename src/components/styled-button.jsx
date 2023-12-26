@@ -33,7 +33,7 @@ export default function StyledButton({
         // Rounded style for the inner div matching the button's border radius
         roundedStyle,
       )}>
-        {children} // Displays the content passed between the button tags
+        {children} 
       </div>
     </button>
   );
