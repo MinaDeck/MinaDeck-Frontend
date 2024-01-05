@@ -1,4 +1,4 @@
-# MinaPoker Project Description
+# Mina zkApp: Mina Poker
 
 ## Overview
 
@@ -47,55 +47,93 @@ MinaPoker offers diverse game formats, including:
 3. **Sit N Go’s**: Short, action-packed games comparable to T20 cricket.
 
 
-## Responsible Gaming
-MinaPoker is committed to promoting responsible gaming, encouraging moderation to ensure a positive and rewarding experience.
+## How to build
 
-## Conclusion
-MinaPoker is not just a gaming platform; it's a revolution in the online poker world. It seamlessly blends the excitement of poker with the advanced security of blockchain technology, offering a unique, fair, and engaging gaming experience. This platform stands as a testament to the innovative application of technology in enhancing online gaming, making it more secure, transparent, and accessible to a global audience.
+```sh
+npm run build
+```
 
-## Future milestones to achieve
-MinaPoker 6-Month Milestones
-1) Platform Beta Launch (Month 1-2):
+## How to run tests
 
-- Release a beta version of MinaPoker for a limited user group to gather feedback.
-Conduct thorough testing of the platform's functionality, including AuroWallet integration, table creation, and gameplay.
+```sh
+npm run test
+npm run testw # watch mode
+```
 
-2) Security Enhancement (Month 2-3):
+# Test Cases
 
-- Implement additional security measures based on beta testing feedback.
-Conduct external security audits to identify and address potential vulnerabilities.
+### 1. Smart Contract Deployment Test
 
-3) User Interface Optimization (Month 3-4):
+**Objective**: Ensure successful deployment of MinaPoker smart contracts on the MINA blockchain.
 
-- Refine and optimize the user interface based on user feedback and usability testing.
-- Ensure a seamless and intuitive experience for both novice and experienced players.
+**Steps**:
+1. Deploy MinaPoker smart contracts.
+2. Verify that the smart contracts are successfully deployed on the MINA blockchain.
+3. Check the contract addresses and ensure they match the expected values.
 
-4) Expanded Game Formats (Month 4-5):
+### 2. Game Initialization Test
 
-- Introduce new game formats, such as Sit N Go's, to diversify the gaming experience.
-- Adjust smart contracts and game logic to accommodate the new formats.
+**Objective**: Test the initialization of a poker game, including player assignment and initial game state.
 
-5) Scalability Improvements (Month 5-6):
+**Steps**:
+1. Create a poker game with two players.
+2. Verify that the players are correctly assigned to player1 and player2.
+3. Check the initial game state, including pot amount, winner status, and other relevant parameters.
 
-- Enhance the platform's scalability to accommodate a growing user base.
-Optimize backend processes to handle increased transaction volume and user interactions.
+### 3. Betting Test
 
-6) Full Platform Launch and Marketing (Month 6):
+**Objective**: Test the betting functionality of the poker game.
 
-- Officially launch the full version of MinaPoker to the public.
-- Initiate marketing campaigns to promote the platform's unique features, emphasizing security, transparency, and diverse gameplay options.
-- Implement responsible gaming features prominently, showcasing the commitment to user well-being.
+**Steps**:
+1. Place bets by players during different rounds.
+2. Verify that the bet amounts are correctly updated for each player.
+3. Ensure that the pot amount reflects the total bets placed by all players.
 
-## Usage
+### 4. Hand Revelation Test
 
-Clone the repository and run:
+**Objective**: Test the functionality of revealing hands at the end of a poker round.
 
-```bash
-git clone https://github.com/MinaPoker/PokerFrontend
+**Steps**:
+1. Simulate the end of a poker round.
+2. Players reveal their hands.
+3. Verify that the hand strength is calculated correctly for each player.
+4. Determine the winner based on hand strength and update the game state accordingly.
 
-cd MinaPoker
-npm install
+### 5. Player Interaction Test
 
-npm run dev
+**Objective**: Test the interaction between players during the game.
+
+**Steps**:
+1. Simulate player actions such as folding, calling, and raising.
+2. Verify that the game state is updated correctly based on player actions.
+3. Ensure that players cannot make invalid moves (e.g., bet more than their available chips).
+
+### 6. Security and ZK Proofs Test
+
+**Objective**: Test the security measures, including the use of zero-knowledge proofs.
+
+**Steps**:
+1. Verify that sensitive information is handled securely using zero-knowledge proofs.
+2. Test the implementation of security measures based on feedback from external security audits.
+3. Ensure that user data and transactions remain private and tamper-proof.
+
+### 7. Frontend Integration Test
+
+**Objective**: Test the integration between the frontend and smart contracts.
+
+**Steps**:
+1. Interact with the frontend to create a poker table.
+2. Join the game and perform various actions through the frontend interface.
+3. Verify that frontend interactions correctly trigger corresponding smart contract functions.
 
 
+
+## How to run coverage
+
+```sh
+npm run coverage
+```
+
+## License
+
+[Apache-2.0](LICENSE)
