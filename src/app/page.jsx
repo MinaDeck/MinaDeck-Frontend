@@ -9,9 +9,8 @@ import { createClient } from "@supabase/supabase-js";
 
 const Home = () => {
   const supabaseUrl = 'https://eglkxepsbbjqqofsrrzb.supabase.co'
-  const supabaseKey = process.env.SUPABASE_KEY
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   const supabase = createClient(supabaseUrl, supabaseKey)
-  console.log("supabase", supabase)
 
   const [walletConnected, setWalletConnected] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
