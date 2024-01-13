@@ -27,3 +27,30 @@ export const checkAddress = async (addressToCheck) => {
         return false;
     }
 };
+
+
+export const addClientData = async (address, userType, formData) => {
+    try {
+        const { data, error } = await supabase
+            .from('user_data')
+            .insert([
+                {
+                    walletId: address,
+                    userType: userType,
+                    name: formData.name,
+                    social: formData.twitter,
+                    status: "true",
+                },
+            ])
+            .select()
+
+        if (error) {
+            throw error;
+        }
+
+        console.log("Supabase data added", data)
+    }
+    catch (error) {
+        console.error('Supabase error:', error);
+    }
+}
