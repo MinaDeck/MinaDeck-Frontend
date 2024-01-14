@@ -29,7 +29,7 @@ export const checkAddress = async (addressToCheck) => {
 };
 
 
-export const addClientData = async (address, userType, formData) => {
+export const addUsertData = async (address, userType, formData) => {
     try {
         const { data, error } = await supabase
             .from('user_data')
@@ -52,5 +52,32 @@ export const addClientData = async (address, userType, formData) => {
     }
     catch (error) {
         console.error('Supabase error:', error);
+    }
+}
+
+
+export const createPokerGame = async (address, userType, formData) => {
+    try {
+        const { data, error } = await supabase
+            .from('create_game')
+            .insert([
+                {
+                    creatorWallet: address,
+                    noOfPlayers: formData.noOfPlayers,
+                    lowBetChips: formData.lowBetChips,
+                    highBetChips: formData.highBetChips,
+                    totalRounds: formData.totalRounds,
+                },
+            ])
+            .select()
+
+        if (error) {
+            throw error;
+        }
+
+        console.log("game added", data)
+    }
+    catch (error) {
+        console.error('error:', error);
     }
 }
