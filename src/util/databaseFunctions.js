@@ -81,3 +81,29 @@ export const createPokerGame = async (address, userType, formData) => {
         console.error('error:', error);
     }
 }
+
+
+// adding 1 user at time to the particular game on Mina Poker
+export const addPlayerToGame = async (gameId, address, userAddress) => {
+    try {
+        const { data, error } = await supabase
+            .from('game_players')
+            .insert([
+                {
+                    gameId: gameId,
+                    creatorAddress: address,
+                    playerAddress: userAddress,
+                },
+            ])
+            .select()
+
+        if (error) {
+            throw error;
+        }
+
+        console.log("game players added", data)
+    }
+    catch (error) {
+        console.error('error:', error);
+    }
+}
