@@ -1,13 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient("https://bxyhvkwqbpkopjfkdyox.supabase.co", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+const supabase = createClient("https://eglkxepsbbjqqofsrrzb.supabase.co", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
 export const checkAddress = async (addressToCheck) => {
     try {
         const { data, error } = await supabase
             .from('user_data')
-            .select('walletId') // Select the 'id' field
-            .eq('walletId', addressToCheck); // Check if 'id' equals the value
+            .select('address') // Select the 'id' field
+            .eq('address', addressToCheck); // Check if 'id' equals the value
 
         if (error) {
             throw error;
