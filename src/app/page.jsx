@@ -16,6 +16,7 @@ const Home = () => {
   const [walletConnected, setWalletConnected] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [accounts, setAccounts] = useState(null);
+  const [profile, setProfile] = useState(false);
 
   const dealerRef = useRef(null);
 
@@ -29,6 +30,9 @@ const Home = () => {
         console.log("check address", checkAddress(collectAccounts))
         checkAddress(collectAccounts).then((res) => {
           console.log("res:", res);
+          if (res) {
+            setProfile(true)
+          }
         }
         );
     }
@@ -70,6 +74,11 @@ return (
           <span className='text-white mt-2 text-lg shadow-lg   '>
             Address: {accounts}
           </span>
+          {/* profile */}
+          <Link href='/create'>
+            <StyledButton className='bg-[#00b69a] bottom-4 text-2xl  m-8 ml-[105px] left-3/5 -translate-x-1/2'>Create Table </StyledButton>
+          </Link>
+          
           <Link href='/create'>
             <StyledButton className='bg-[#00b69a] bottom-4 text-2xl  m-8 ml-[105px] left-3/5 -translate-x-1/2'>Create Table </StyledButton>
           </Link>
