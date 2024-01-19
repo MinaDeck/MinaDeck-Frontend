@@ -4,6 +4,11 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline'
+import { addPlayerData } from '@/util/databaseFunctions'
+import { FaStarOfLife } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { AiOutlineUser } from "react-icons/ai";
+
 
 // ShareLink component - used for sharing a match link
 export default function CreateProfilePopUp({ onClose, link }) {
@@ -22,7 +27,19 @@ export default function CreateProfilePopUp({ onClose, link }) {
     const currentUrl = new URL(link, location.origin)
     setUrl(currentUrl.toString())
   }, [])
-  
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addPlayerData(walletAddress[0], userType, formData)
+    // router.push("/dashboard");
+    // alert(`Name: ${formData.name}\nCompany: ${formData.company}\nWebsite: ${formData.website}\nTwitter: ${formData.twitter}\nGitHub: ${formData.github}\nInvite: ${formData.invite}`);
+  };
+
   // Main return method that renders the share link UI
   return (
     <FrameBox
@@ -33,23 +50,78 @@ export default function CreateProfilePopUp({ onClose, link }) {
       <div className='w-[560px] m-10 text-center text-white'>
         <h4 className='text-3xl font-black'>Create Your Profile</h4>
         <p>Welcome To MinaPoker</p>
-        {/* <p><img className='icon' src='/share-link-icon.png' /></p> */}
-        <p>Information about the match accessibility.</p>
-        <p className='text-[#fff000] cursor-pointer'>
-          {/* Copy to clipboard functionality for the match URL */}
-          <CopyToClipboard text={url}
-            onCopy={() => { setCopyed(true); setTimeout(() => setCopyed(false), 3000) }}>
-            <a className='relative underline'>
-              {url}
-              {copyed && <DocumentDuplicateIcon className='absolute -right-5 top-1 w-4 h-4' />}
-            </a>
-          </CopyToClipboard>
-        </p>
+        <form onSubmit={handleSubmit}>
+          <div className="relative pb-3">
+            <div className="text-black px-2 md:px-0 flex">Full Name {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
+            </div>
+            <div className="mt-3 ">
+              <span className="absolute inset-y-0 top-5 right-0 flex items-center pr-4">
+                <AiOutlineUser size={25} className="text-gray-400" />
+              </span>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                placeholder="John Carter"
+                onChange={handleChange}
+                required
+                className="peer px-6 py-2 border flex gap-6 border-slate-200  bg-white w-full rounded-[20px] text-slate-700 dark:text-slate-600 hover:border-slate-200 hover:shadow transition duration-150"
+              />
+            </div>
+          </div>
+
+          <div className="relative pb-3">
+          <div className="text-black px-2 md:px-0 flex">Username {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
+            </div>
+            <div className="mt-3 ">
+              <span className="absolute inset-y-0 top-5 right-0 flex items-center pr-4">
+                <MdOutlineEmail size={25} className="text-gray-400" />
+              </span>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                value={formData.userName}
+                placeholder="Your Username"
+                onChange={handleChange}
+                required
+                className="peer px-6 py-2 border flex gap-6 border-slate-200  bg-white w-full rounded-[20px] text-slate-700 dark:text-slate-600 hover:border-slate-200 hover:shadow transition duration-150"
+              />
+            </div>
+          </div>
+
+
+
+          <div className=" h-[0px] border my-3 border-neutral-300"></div>
+
+          <div className="relative pb-3">
+            <div className="text-black px-2 md:px-0 flex">Invite {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
+            </div>
+            <div className="mt-3 ">
+
+              <input
+                type="text"
+                id="invite"
+                name="invite"
+                value={formData.invite}
+                placeholder="12345"
+                onChange={handleChange}
+                required
+                className="peer px-6 py-2 border flex gap-6 border-slate-200  bg-white w-full rounded-[20px] text-slate-700 dark:text-slate-600 hover:border-slate-200 hover:shadow transition duration-150"
+              />
+            </div>
+          </div>
+
+          <div className="flex align-middle justify-center items-center">
+            <StyledButton type="submit" className='bg-[#ff9000] m-2' roundedStyle='rounded-full' onClick={() => { router.push(link) }}>
+              <div className='text-2xl text-black' >LET'S GO</div>
+            </StyledButton>
+          </div>
+        </form>
       </div>
       <div className='flex justify-center'>
-        <StyledButton className='bg-[#ff9000] m-2' roundedStyle='rounded-full' onClick={() => { router.push(link) }}>
-          <div className='text-2xl' >LET'S GO</div>
-        </StyledButton>
+
       </div>
     </FrameBox>
   )

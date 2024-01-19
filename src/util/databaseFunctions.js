@@ -29,7 +29,7 @@ export const checkAddress = async (addressToCheck) => {
 };
 
 
-export const addUsertData = async (address, userType, formData) => {
+export const addPlayerData = async (address, userType, formData) => {
     try {
         const { data, error } = await supabase
             .from('user_data')
