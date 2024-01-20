@@ -74,14 +74,14 @@ export default function CreateProfilePopUp({ onClose, link }) {
           <div className="relative pb-3">
           <div className="text-black px-2 md:px-0 flex">Username {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
             </div>
-            <div className="mt-3 ">
+            <div className="mt-3 text-black">
               <span className="absolute inset-y-0 top-5 right-0 flex items-center pr-4">
                 <MdOutlineEmail size={25} className="text-gray-400" />
               </span>
               <input
                 type="text"
-                id="website"
-                name="website"
+                id="userName"
+                name="userName"
                 value={formData.userName}
                 placeholder="Your Username"
                 onChange={handleChange}
@@ -95,7 +95,7 @@ export default function CreateProfilePopUp({ onClose, link }) {
 
           <div className=" h-[0px] border my-3 border-neutral-300"></div>
 
-          <div className="relative pb-3">
+          <div className="relative pb-3 rounded">
             <div className="text-black px-2 md:px-0 flex">Invite {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
             </div>
             <div className="mt-3 ">
@@ -114,7 +114,7 @@ export default function CreateProfilePopUp({ onClose, link }) {
           </div>
 
           <div className="flex align-middle justify-center items-center">
-            <StyledButton type="submit" className='bg-[#ff9000] m-2' roundedStyle='rounded-full' onClick={() => { router.push(link) }}>
+          <StyledButton type="submit" className='bg-[#ff9000] m-2' roundedStyle='rounded-full'>
               <div className='text-2xl text-black' >LET'S GO</div>
             </StyledButton>
           </div>
