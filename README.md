@@ -2,21 +2,21 @@
 
 ## Overview
 
-MinaPoker represents a groundbreaking approach in the online poker industry, merging the thrill of poker with the robust security and anonymity offered by cryptocurrencies. This platform harnesses the power of blockchain technology to create a decentralized, transparent, and secure environment for poker enthusiasts worldwide.
+MinaDeck represents a groundbreaking approach in the online poker industry, merging the thrill of poker with the robust security and anonymity offered by cryptocurrencies. This platform harnesses the power of blockchain technology to create a decentralized, transparent, and secure environment for poker enthusiasts worldwide.
 
-![MinaPoker Architecture](./mainpage.png)
+![MinaDeck Architecture](./mainpage.png)
 
 
 ### Key Features
 
-- **Decentralized Gaming**: Built on the MINA blockchain, MinaPoker ensures a tamper-proof gaming environment, free from centralized control.
+- **Decentralized Gaming**: Built on the MINA blockchain, MinaDeck ensures a tamper-proof gaming environment, free from centralized control.
 - **Secure Transactions**: Utilizes cryptocurrencies for transactions, providing instant and secure means of deposits and withdrawals.
 - **Anonymity**: Players enjoy the freedom to play anonymously, safeguarding their personal information.
 - **Provably Fair Gameplay**: Every hand in the game is demonstrably fair, ensuring an equal chance of winning for all participants.
 - **User-Friendly Interface**: The platform offers a seamless and immersive poker experience, accessible to both experienced players and novices.
 
 ## Technical Architecture
-![MinaPoker Architecture](MINA%20Poker.png)
+![MinaDeck Architecture](MINA%20Poker.png)
 
 ### Frontend (NextJS)
 - **AuroWallet Integration**: Enables user authentication through AuroWallet, ensuring secure access to the platform.
@@ -41,7 +41,7 @@ MinaPoker represents a groundbreaking approach in the online poker industry, mer
 - **Gameplay**: Players are directed to the game page after table selection, engaging in poker through interactions with smart contracts.
 
 ### Formats
-MinaPoker offers diverse game formats, including:
+MinaDeck offers diverse game formats, including:
 1. **Ring Games**: Flexible gameplay similar to a test match in cricket.
 2. **Multi-Table Tournaments**: Competitive play with increasing blinds, akin to one-day cricket matches.
 3. **Sit N Go’s**: Short, action-packed games comparable to T20 cricket.
@@ -64,10 +64,10 @@ npm run testw # watch mode
 
 ### 1. Smart Contract Deployment Test
 
-**Objective**: Ensure successful deployment of MinaPoker smart contracts on the MINA blockchain.
+**Objective**: Ensure successful deployment of MinaDeck smart contracts on the MINA blockchain.
 
 **Steps**:
-1. Deploy MinaPoker smart contracts.
+1. Deploy MinaDeck smart contracts.
 2. Verify that the smart contracts are successfully deployed on the MINA blockchain.
 3. Check the contract addresses and ensure they match the expected values.
 

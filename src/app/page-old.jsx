@@ -64,7 +64,7 @@ export default function MinePage() {
             <div className='font-black'></div>
           </div>
           {/* ... Other game interface sections ... */}
-          
+
           {/* Displaying user information with custom utility function `displayAddress` */}
           <div className='user info display'>
             <div className='user info styling'>{displayAddress(userInfo?.address)}</div>

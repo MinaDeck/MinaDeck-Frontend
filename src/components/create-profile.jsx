@@ -49,7 +49,7 @@ export default function CreateProfilePopUp({ onClose, link }) {
     >
       <div className='w-[560px] m-10 text-center text-white'>
         <h4 className='text-3xl font-black'>Create Your Profile</h4>
-        <p>Welcome To MinaPoker</p>
+        <p>Welcome To MinaDeck</p>
         <form onSubmit={handleSubmit}>
           <div className="relative pb-3">
             <div className="text-black px-2 md:px-0 flex">Full Name {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
