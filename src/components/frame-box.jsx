@@ -6,7 +6,7 @@ export default function FrameBox({
   onClose, // Function to be called when the close button is clicked
 }) {
   return (
-    <div className='fixed top-0 left-0 w-screen h-screen bg-black/50 z-50 flex justify-center items-center'>
+    <div className='bg-black/50 z-50 flex justify-center items-center'>
       {/* Overlay that covers the entire screen with a semi-transparent background */}
 
       <div className='rounded-xl relative'>

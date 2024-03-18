@@ -4,6 +4,13 @@ import { motion } from 'framer-motion';
 
 import styles from '../../styles';
 import { navVariants } from '@/util/motion';
+import StyledButton from '../styled-button';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import ConnectWallet from '../ConnectWallet';
 
 const Navbar = () => (
   <motion.nav
@@ -12,23 +19,21 @@ const Navbar = () => (
     whileInView="show"
     className={`${styles.xPaddings} py-8 relative`}
   >
-    <div className="absolute w-[50%] inset-0 gradient-01" />
+    <div className="absolute w-[100%] inset-0 gradient-01" />
     <div
-      className={`${styles.innerWidth} mx-auto flex justify-between gap-8`}
+      className={`w-full 2xl:max-w-[1280px] mx-auto flex justify-between gap-8`}
     >
-      <img
-        src="/homePage/search.svg"
-        alt="search"
-        className="w-[24px] h-[24px] object-contain"
-      />
       <h2 className="font-extrabold text-[24px] leading-[30.24px] text-white">
         MINA DECK
       </h2>
-      <img
-        src="/homePage/menu.svg"
-        alt="menu"
-        className="w-[24px] h-[24px] object-contain"
-      />
+      <Dialog>
+        <DialogTrigger asChild>
+          <StyledButton roundedStyle='rounded-full' className='bg-[#ff9000] text-2xl'>Connect Wallet</StyledButton>
+        </DialogTrigger>
+        <DialogContent className="pt-6">
+          <ConnectWallet />
+        </DialogContent>
+      </Dialog>
     </div>
   </motion.nav>
 );

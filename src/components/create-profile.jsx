@@ -11,7 +11,7 @@ import { AiOutlineUser } from "react-icons/ai";
 
 
 // ShareLink component - used for sharing a match link
-export default function CreateProfilePopUp({ onClose, link }) {
+export default function CreateProfilePopUp({ openHandler }) {
   const router = useRouter()
   const [url, setUrl] = useState(null)
   const [copyed, setCopyed] = useState(false)
@@ -22,11 +22,11 @@ export default function CreateProfilePopUp({ onClose, link }) {
     inviteCode: "",
   });
 
-  useEffect(() => {
-    // On component mount, the URL is constructed and set
-    const currentUrl = new URL(link, location.origin)
-    setUrl(currentUrl.toString())
-  }, [])
+  // useEffect(() => {
+  //   // On component mount, the URL is constructed and set
+  //   const currentUrl = new URL(link, location.origin)
+  //   setUrl(currentUrl.toString())
+  // }, [])
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -44,7 +44,7 @@ export default function CreateProfilePopUp({ onClose, link }) {
   return (
     <FrameBox
       title={<div className='bg-no-repeat bg-top h-[96px] -translate-y-1/2'></div>}
-      onClose={onClose} // onClose prop for closing the component
+      onClose={openHandler} // onClose prop for closing the component
       showClose={true} // Option to hide the close button
     >
       <div className='w-[560px] m-10 text-center text-white'>
@@ -90,11 +90,7 @@ export default function CreateProfilePopUp({ onClose, link }) {
               />
             </div>
           </div>
-
-
-
           <div className=" h-[0px] border my-3 border-neutral-300"></div>
-
           <div className="relative pb-3 rounded">
             <div className="text-black px-2 md:px-0 flex">Invite {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
             </div>

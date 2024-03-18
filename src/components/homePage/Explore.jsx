@@ -17,8 +17,6 @@ export default function Explore () {
   // State to track the active world
   const [active, setActive] = useState('world-2');
 
-  console.log(exploreWorlds)
-
   return (
     // Explore section container with styles
     <section className={`${styles.paddings}`} id="explore">
@@ -40,7 +38,7 @@ export default function Explore () {
         />
 
         {/* Explore cards container */}
-        <div className="mt-[50px] flex lg:flex-row flex-col min-h-[70vh] gap-5">
+        <div className="mt-[50px] flex lg:flex-row flex-col gap-5">
           {exploreWorlds.map((world, index) => (
             <ExploreCard
               key={index}
