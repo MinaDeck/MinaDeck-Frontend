@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@prisma/client": "^5.11.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@react-spring/web": "latest",
     "@supabase/supabase-js": "^2.39.3",
