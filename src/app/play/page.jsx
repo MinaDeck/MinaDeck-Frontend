@@ -28,7 +28,7 @@ export default function ConnectWallet() {
             console.log(collectAccounts)
             if (collectAccounts) {
                 setWalletConnected(true)
-                console.log("check address", checkAddress(collectAccounts))
+                console.log("check address", await checkAddress(collectAccounts))
                 checkAddress(collectAccounts).then((res) => {
                     console.log("res:", res);
                     if (res) {
@@ -75,7 +75,7 @@ export default function ConnectWallet() {
                                             <StyledButton className='bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Profile </StyledButton>
                                         </DialogTrigger>
                                         <DialogContent className=" w-fit">
-                                            <CreateProfilePopUp openHandler={openHandler}/>
+                                            <CreateProfilePopUp openHandler={openHandler} accounts={accounts}/>
                                         </DialogContent>
                                     </Dialog>
                                 </div>

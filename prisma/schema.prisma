@@ -14,10 +14,10 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Review {
-  id     String @id @default(uuid())
-  address String
-  name String
+model User {
+  id       String @id @default(uuid())
+  address  String
+  name     String
   userName String
-  status String
+  status   String @default("active")
 }

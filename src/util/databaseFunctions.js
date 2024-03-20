@@ -1,26 +1,37 @@
+import axios from "axios";
+import { prisma } from "./db";
 
 export const checkAddress = async (addressToCheck) => {
     try {
 
-        if (error) {
-            throw error;
+        const response = await axios.post('/api/check-address', { address: addressToCheck[0] });
+        const data = response.data;
+
+        if (data.response.length > 0) {
+            return true;
+        } else {
+            return false;
         }
 
     } catch (error) {
-        console.error('error:', error);
+        console.error('Prisma error:', error);
         return false;
     }
 };
 
 
-export const addPlayerData = async (address, userType, formData) => {
+export const addPlayerData = async (address, formData) => {
     try {
 
-        if (error) {
-            throw error;
-        }
+        const response = await axios.post('/api/add-user',
+            {
+                address: address,
+                name: formData.name,
+                userName: formData.userName
+            }
+        );
+        const data = response.data;
 
-        console.log("data added", data)
     }
     catch (error) {
         console.error('error:', error);

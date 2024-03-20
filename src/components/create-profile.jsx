@@ -11,7 +11,7 @@ import { AiOutlineUser } from "react-icons/ai";
 
 
 // ShareLink component - used for sharing a match link
-export default function CreateProfilePopUp({ openHandler }) {
+export default function CreateProfilePopUp({ openHandler,accounts }) {
   const router = useRouter()
   const [url, setUrl] = useState(null)
   const [copyed, setCopyed] = useState(false)
@@ -35,7 +35,8 @@ export default function CreateProfilePopUp({ openHandler }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addPlayerData(walletAddress[0], userType, formData)
+    addPlayerData(accounts[0], formData)
+    console.log("form data", formData, accounts[0])
     // router.push("/dashboard");
     // alert(`Name: ${formData.name}\nCompany: ${formData.company}\nWebsite: ${formData.website}\nTwitter: ${formData.twitter}\nGitHub: ${formData.github}\nInvite: ${formData.invite}`);
   };
@@ -99,7 +100,7 @@ export default function CreateProfilePopUp({ openHandler }) {
               <input
                 type="text"
                 id="invite"
-                name="invite"
+                name="inviteCode"
                 value={formData.invite}
                 placeholder="12345"
                 onChange={handleChange}

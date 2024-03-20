@@ -20,6 +20,7 @@
     "@tailwindcss/forms": "latest",
     "@tailwindcss/line-clamp": "latest",
     "@tailwindcss/typography": "latest",
+    "axios": "^1.6.8",
     "bs58": "^5.0.0",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
