@@ -1,5 +1,4 @@
 import axios from "axios";
-import { prisma } from "./db";
 
 export const checkAddress = async (addressToCheck) => {
     try {
@@ -14,7 +13,7 @@ export const checkAddress = async (addressToCheck) => {
         }
 
     } catch (error) {
-        console.error('Prisma error:', error);
+        console.error('error:', error);
         return false;
     }
 };
@@ -32,21 +31,38 @@ export const addPlayerData = async (address, formData) => {
         );
         const data = response.data;
 
+        if (!data?.success) {
+            throw new Error('Error adding player data. API response is not successful.');
+        }
+
+        return true; // Return true on successful addition
     }
     catch (error) {
         console.error('error:', error);
+        throw error;
     }
 }
 
 
-export const createPokerGame = async (address, userType, formData) => {
+export const createPokerGame = async (id, size, lowBetChips, topBetChips, totalRounds) => {
     try {
 
-        if (error) {
-            throw error;
+        const response = await axios.post('/api/create-game',
+            {
+                gameId: id,
+                size: size,
+                lowBetChips: lowBetChips,
+                topBetChips: topBetChips,
+                totalRounds: totalRounds
+            }
+        );
+        const data = response.data;
+
+        if (!data?.success) {
+            throw new Error('Error adding player data. API response is not successful.');
         }
 
-        console.log("game added", data)
+        return true; // Return true on successful addition
     }
     catch (error) {
         console.error('error:', error);

@@ -21,3 +21,12 @@ model User {
   userName String
   status   String @default("active")
 }
+
+model Game {
+  id          String @id @default(uuid())
+  tableSize   Int
+  lowBetChips Int
+  topBetChips Int
+  totalRounds Int
+  gameId      String
+}

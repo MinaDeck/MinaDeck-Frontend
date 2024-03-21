@@ -8,8 +8,16 @@ export async function POST(req) {
         where: { address: address },
     })
 
-    return NextResponse.json({
-        success: true,
-        response: response,
-    });
+    if (response) {
+        return NextResponse.json({
+            success: true,
+            response: response,
+        });
+    } else {
+        return NextResponse.json({
+            success: false,
+            response: {},
+        });
+    }
+
 }

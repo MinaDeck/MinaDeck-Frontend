@@ -13,6 +13,8 @@ import aleoFetcher from '@/fetcher/aleo'
 import { encodeBs58 } from '@/util'
 import ShareLink from '@/components/share-link'
 import { useGameData } from '@/hooks/useGameData'
+import { v4 } from 'uuid'
+import { createPokerGame } from '@/util/databaseFunctions'
 
 
 export default function CreateGamePage() {
@@ -24,30 +26,36 @@ export default function CreateGamePage() {
     const [lowBetChips, setLowBetChips] = useState(2)
     const [topBetChips, setTopBetChips] = useState(20)
     const [totalRounds, setTotalRounds] = useState(2)
-    const [gameId, setGameId] = useState('abcd1234')
+    const [gameId, setGameId] = useState("")
 
     const [handleSubmitState, setHandleSubmitState] = useState(false)
     const [coLoading, setCoLoading] = useState(false);
 
     const handleCreateGame = async () => {
-        setCoLoading(true);
-        console.log("input data", minimum, lowBetChips, topBetChips, totalRounds, gameId);
+        try {
+            setCoLoading(true);
+            console.log("input data", minimum, lowBetChips, topBetChips, totalRounds);
 
-        // setGameData(newGameData);
-        setGameData({
-            size: minimum,
-            lowBetChips: lowBetChips,
-            topBetChips: topBetChips,
-            totalRounds: totalRounds,
-            gameId: 'abcd1234',
-        });
+            const id = v4().split('-')[0];
+            setGameId(id);
 
-        // Simulate a delay (e.g., 1 second) to mimic an API call.
-        setTimeout(() => {
+            setGameData({
+                size: minimum,
+                lowBetChips: lowBetChips,
+                topBetChips: topBetChips,
+                totalRounds: totalRounds,
+            });
+
+            await createPokerGame(id, minimum, lowBetChips, topBetChips, totalRounds)
+
             setCoLoading(false);
             setHandleSubmitState(true);
             console.log('Create a game on-chain (simulated)');
-        }, 2000);
+        } catch (e) {
+            console.log("error", e)
+            setCoLoading(false);
+        }
+
     };
 
     return (
@@ -143,7 +151,7 @@ export default function CreateGamePage() {
                     </div>
                 </div>
             </div>}
-            {handleSubmitState && gameId && <ShareLink link={`/game?gameId=${gameId}`} />}
+            {(handleSubmitState && gameId) && <ShareLink link={`/game?gameId=${gameId}`} />}
         </>
     )
 }
@@ -186,4 +194,3 @@ function MyRange({
         </div>
     )
 }
-

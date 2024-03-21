@@ -24,24 +24,28 @@ export default function ShareLink({ onClose, link }) {
       onClose={onClose} // onClose prop for closing the component
       showClose={false} // Option to hide the close button
     >
-      <div className='w-[560px] m-10 text-center text-white'>
+      <div className='w-[560px] m-10 mb-4 text-center text-white'>
         <h4 className='text-3xl font-black'>Match created!</h4>
         <p>Instructions for sharing the match.</p>
-        <p><img className='icon' src='/share-link-icon.png' /></p>
-        <p>Information about the match accessibility.</p>
-        <p className='text-[#fff000] cursor-pointer'>
-          {/* Copy to clipboard functionality for the match URL */}
-          <CopyToClipboard text={url}
-            onCopy={() => { setCopyed(true); setTimeout(() => setCopyed(false), 3000) } }>
-            <a className='relative underline'>
-              {url}
-              { copyed && <DocumentDuplicateIcon className='absolute -right-5 top-1 w-4 h-4' /> }
-            </a>
-          </CopyToClipboard>
-        </p>
+        <div className='flex items-center gap-8'>
+          <img className='icon' src='/share-link-icon.png' />
+          <span>
+            <p>Information about the match. Click to copy</p>
+            <p className='text-[#fff000] cursor-pointer'>
+              {/* Copy to clipboard functionality for the match URL */}
+              <CopyToClipboard text={url}
+                onCopy={() => { setCopyed(true); setTimeout(() => setCopyed(false), 3000) }}>
+                <a className='relative underline'>
+                  {url}
+                  {copyed && <DocumentDuplicateIcon className='absolute -right-5 top-1 w-4 h-4' />}
+                </a>
+              </CopyToClipboard>
+            </p>
+          </span>
+        </div>
       </div>
       <div className='flex justify-center'>
-        <StyledButton className='bg-[#ff9000] m-2' roundedStyle='rounded-full' onClick={ () => { router.push(link) } }>
+        <StyledButton className='bg-[#ff9000] m-2' roundedStyle='rounded-full' onClick={() => { router.push(link) }}>
           <div className='text-2xl' >LET'S GO</div>
         </StyledButton>
       </div>

@@ -11,7 +11,7 @@ import { AiOutlineUser } from "react-icons/ai";
 
 
 // ShareLink component - used for sharing a match link
-export default function CreateProfilePopUp({ openHandler,accounts }) {
+export default function CreateProfilePopUp({ openHandler, accounts }) {
   const router = useRouter()
   const [url, setUrl] = useState(null)
   const [copyed, setCopyed] = useState(false)
@@ -33,13 +33,20 @@ export default function CreateProfilePopUp({ openHandler,accounts }) {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    addPlayerData(accounts[0], formData)
-    console.log("form data", formData, accounts[0])
-    // router.push("/dashboard");
-    // alert(`Name: ${formData.name}\nCompany: ${formData.company}\nWebsite: ${formData.website}\nTwitter: ${formData.twitter}\nGitHub: ${formData.github}\nInvite: ${formData.invite}`);
+
+    try {
+      await addPlayerData(accounts[0], formData);
+      console.log("form data", formData, accounts[0]);
+      // router.push("/dashboard"); // Redirect to dashboard on success
+      alert("Player data added successfully!"); // Success message
+    } catch (error) {
+      console.error("Error adding player data:", error);
+      alert("An error occurred while adding player data. Please try again later."); 
+    }
   };
+
 
   // Main return method that renders the share link UI
   return (
@@ -73,7 +80,7 @@ export default function CreateProfilePopUp({ openHandler,accounts }) {
           </div>
 
           <div className="relative pb-3">
-          <div className="text-black px-2 md:px-0 flex">Username {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
+            <div className="text-black px-2 md:px-0 flex">Username {<FaStarOfLife size={6} className="text-red-600 mt-1 mx-2" />}
             </div>
             <div className="mt-3 text-black">
               <span className="absolute inset-y-0 top-5 right-0 flex items-center pr-4">
@@ -111,7 +118,7 @@ export default function CreateProfilePopUp({ openHandler,accounts }) {
           </div>
 
           <div className="flex align-middle justify-center items-center">
-          <StyledButton type="submit" className='bg-[#ff9000] m-2' roundedStyle='rounded-full'>
+            <StyledButton type="submit" className='bg-[#ff9000] m-2' roundedStyle='rounded-full'>
               <div className='text-2xl text-black' >LET'S GO</div>
             </StyledButton>
           </div>
