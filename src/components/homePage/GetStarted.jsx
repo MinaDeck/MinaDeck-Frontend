@@ -10,7 +10,7 @@ import { staggerContainer, fadeIn, planetVariants } from '@/util/motion';
 
 // Functional component for GetStarted section
 const GetStarted = () => (
-  <section className={`${styles.paddings} relative z-10`}>
+  <section className={`${styles.paddings} relative z-10`} data-testid="get-started">
     {/* Motion animation for the container */}
     <motion.div
       variants={staggerContainer}

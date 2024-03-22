@@ -6,7 +6,7 @@ import styles from '../../styles';
 import { fadeIn, staggerContainer, zoomIn } from '@/util/motion';
 
 const Feedback = () => (
-  <section className={`${styles.paddings}`}>
+  <section className={`${styles.paddings}`} data-testid="feedback">
     <motion.div
       variants={staggerContainer}
       initial="hidden"
@@ -21,13 +21,12 @@ const Feedback = () => (
         <div className="feedback-gradient justify-center items-center flex" />
         <div className=''>
           <h4 className="font-bold sm:text-[32px] text-[26px] sm:leading-[40.32px] leading-[36.32px] text-white">
-          Edward Norton
+            Edward Norton
           </h4>
           <p className="mt-[8px] font-normal sm:text-[18px] text-[12px] sm:leading-[22.68px] leading-[16.68px] text-white">
-           
+
           </p>
         </div>
-
         <p className="mt-[24px] font-normal sm:text-[24px] text-[18px] sm:leading-[45.6px] leading-[39.6px] text-white">
           “Life, like poker has an element of risk. It shouldn't be avoided. It should be faced”
         </p>

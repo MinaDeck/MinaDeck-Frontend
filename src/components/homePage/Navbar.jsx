@@ -18,6 +18,7 @@ const Navbar = () => (
     initial="hidden"
     whileInView="show"
     className={`${styles.xPaddings} py-8 relative`}
+    data-testid="navbar"
   >
     <div className="absolute w-[100%] inset-0 gradient-01" />
     <div
@@ -28,7 +29,7 @@ const Navbar = () => (
       </h2>
       <Dialog>
         <DialogTrigger asChild>
-          <StyledButton roundedStyle='rounded-full' className='bg-[#ff9000] text-2xl'>Connect Wallet</StyledButton>
+          <StyledButton roundedStyle='rounded-full' className='bg-[#ff9000] text-2xl'>Start Game</StyledButton>
         </DialogTrigger>
         <DialogContent className="pt-6">
           <ConnectWallet />

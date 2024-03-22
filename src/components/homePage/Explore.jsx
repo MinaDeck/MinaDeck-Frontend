@@ -10,16 +10,16 @@ import { staggerContainer } from '@/util/motion';
 
 // Import custom components
 import ExploreCard from './ExploreCard';
-import { TypingText,TitleText } from './CustomTexts';
+import { TypingText, TitleText } from './CustomTexts';
 
 // Explore component definition
-export default function Explore () {
+export default function Explore() {
   // State to track the active world
   const [active, setActive] = useState('world-2');
 
   return (
     // Explore section container with styles
-    <section className={`${styles.paddings}`} id="explore">
+    <section className={`${styles.paddings}`} data-testid="explore">
       {/* Framer Motion container for animations */}
       <motion.div
         variants={staggerContainer}
@@ -29,7 +29,7 @@ export default function Explore () {
         className={`${styles.innerWidth} mx-auto flex flex-col`}
       >
         {/* TypingText component for animated text */}
-        <TypingText title="| Features" textStyles="text-center"/>
+        <TypingText title="| Features" textStyles="text-center" />
 
         {/* TitleText component for a title with line breaks */}
         <TitleText

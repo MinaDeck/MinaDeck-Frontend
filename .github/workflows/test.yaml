@@ -1,0 +1,18 @@
+name: Run Tests
+
+on:
+  push: # Trigger the workflow on every push event
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # Specify the runner environment (OS)
+    steps:
+      - uses: actions/checkout@v3 # Checkout your code from the repository
+      - name: Use Node.js 16 # Set up the required Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm install # Or yarn install if you use yarn
+      - name: Run tests
+        run: npm test # Or yarn test if you use yarn

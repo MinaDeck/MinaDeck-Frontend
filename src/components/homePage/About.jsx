@@ -7,7 +7,7 @@ import styles from '../../styles';
 import { fadeIn, staggerContainer } from '@/util/motion';
 
 const About = () => (
-  <section className="py-12 sm:py-16 relative z-10 text-white">
+  <section className="py-12 sm:py-16 relative z-10 text-white" data-testid="about">
     <div className="gradient-02 z-0" />
     <motion.div
       variants={staggerContainer}

@@ -13,6 +13,7 @@ const Hero = () => (
       whileInView="show"
       viewport={{ once: false, amount: 0.25 }}
       className={`${styles.innerWidth} mx-auto flex flex-col`}
+      data-testid="hero"
     >
       <div className="flex justify-center items-center flex-col relative z-10">
         <motion.h1 variants={textVariant(1.1)} className={`font-bold text-white text-[64px] leading-[50px]`}>

@@ -45,7 +45,7 @@ export default function ConnectWallet() {
             <div className='absolute top-0 left-1/2 right-0 bottom-0 pr-20 py-12'>
                 <div className='relative text-center flex justify-center'>
                     <img src='/login-button-bg.png' />
-                    <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>Connect Wallet</StyledButton>
+                    <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' data-testid="connect" onClick={connectWallet}>Connect Wallet</StyledButton>
                 </div>
                 {accounts &&
                     <div className='w-full flex flex-col items-center'>
