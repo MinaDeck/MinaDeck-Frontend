@@ -12,7 +12,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: install pnpm
+        run: npm install -g pnpm
       - name: Install dependencies
-        run: npm install # Or yarn install if you use yarn
+        run: pnpm install # Or yarn install if you use yarn
       - name: Run tests
-        run: npm test # Or yarn test if you use yarn
+        run: pnpm test # Or yarn test if you use yarn
