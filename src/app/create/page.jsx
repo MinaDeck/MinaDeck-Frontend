@@ -40,6 +40,7 @@ export default function CreateGamePage() {
             setGameId(id);
 
             setGameData({
+                gameId: id,
                 size: minimum,
                 lowBetChips: lowBetChips,
                 topBetChips: topBetChips,
