@@ -5,13 +5,15 @@ import { useSearchParams } from 'next/navigation'
 const wsMap = new Map()
 globalThis.$WS_MAP$ = wsMap
 
-export function useGameRoom(gameId, token) {
-  const ws = useSWRSubscribe([gameId, token], ([gameId, token], { next }) => {
+export function useGameRoom(gameId) {
+  // console.log("gameId",gameId)
+
+  const ws = useSWRSubscribe([gameId], ([gameId], { next }) => {
     let socket
-    if(gameId && token) {
-      const url = new URL(`ws://162.219.87.221/ws`)
+    if(gameId) {
+      const url = new URL(`ws://localhost:8080`)
       url.searchParams.set('gameId', gameId)
-      url.searchParams.set('token', token)
+      // url.searchParams.set('token', token)
       socket = new WebSocket(url)
 
       const openHandle = event => {
@@ -50,9 +52,9 @@ export function useGameRoom(gameId, token) {
       socket.addEventListener('error', errorHandle)
       socket.addEventListener('close', closeHandle)
 
-      wsMap.set(`${gameId}_${token}`, socket)
+      wsMap.set(`${gameId}`, socket)
     } else {
-      next(new Error('gameId and token is required'))
+      next(new Error('gameId is required'))
     }
     return () => {
       socket?.close()
@@ -63,7 +65,7 @@ export function useGameRoom(gameId, token) {
     data: ws.data,
     error: ws.error,
     send(payload) {
-      const socket = wsMap.get(`${gameId}_${token}`)
+      const socket = wsMap.get(`${gameId}`)
       if(socket) {
         console.log('<<SEND::', payload, ws)
         if(socket.readyState === 1) {
@@ -72,7 +74,7 @@ export function useGameRoom(gameId, token) {
           globalThis.location.reload()
         }
       } else {
-        console.error('ws object missing', gameId, token)
+        console.error('ws object missing', gameId)
       }
     }
   }

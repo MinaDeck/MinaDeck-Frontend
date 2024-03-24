@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog"
 import { checkAddress, getUserData } from '@/util/databaseFunctions';
 import { useUserData } from '@/hooks/useUserData';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation'
 
 export default function ConnectWallet() {
 
@@ -18,44 +20,62 @@ export default function ConnectWallet() {
     const [userInfo, setUserInfo] = useState(null);
     const [accounts, setAccounts] = useState(null);
     const [profile, setProfile] = useState(false);
-    const [open,setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [disabled, setDisabled] = useState(true)
 
     const { userData, setUserData } = useUserData();
 
     const dealerRef = useRef(null);
+    const router = useRouter()
+
+    const searchParams = useSearchParams();
+    // Get the search params object
+
+    const gameId = searchParams.get('gameId');
 
     const connectWallet = async () => {
         try {
             const collectAccounts = await window.mina.requestAccounts()
             setAccounts(collectAccounts);
             console.log(collectAccounts)
-            // let data = { id: "", address: "", name: "", userName: "", status: "" };
-            // if (collectAccounts) {
-            //     setWalletConnected(true)
-            //     console.log("check address", await checkAddress(collectAccounts))
-            //     checkAddress(collectAccounts).then((res) => {
-            //         console.log("res:", res);
-            //         if (res) {
-            //             setProfile(true)
-            //         }
-            //     })
-            //     data = await getUserData(collectAccounts)
-            // }
+            let data = { id: "", address: "", name: "", userName: "", status: "" };
 
-            // console.log("data",data.response[0])
+            if (userData == data) {
+                setOpen(true)
+            }
+            if (collectAccounts) {
+                setWalletConnected(true)
+                console.log("check address", await checkAddress(collectAccounts))
+                checkAddress(collectAccounts).then((res) => {
+                    console.log("res:", res);
+                    if (res) {
+                        setProfile(true)
+                    }
+                })
+                data = await getUserData(collectAccounts)
+            }
 
-            // setUserData({
-            //     id: data.response[0].id,
-            //     name: data.response[0].name,
-            //     userName: data.response[0].userName,
-            //     status: data.response[0].status,
-            //     address: data.response[0].address,
-            // });
+            console.log("data", data.response[0])
+
+            setUserData({
+                id: data.response[0].id,
+                name: data.response[0].name,
+                userName: data.response[0].userName,
+                status: data.response[0].status,
+                address: data.response[0].address,
+            });
 
         } catch (error) {
             console.log(error.message, error.code)
         }
     }
+
+    useEffect(() => {
+        if (userData.id !== '' && userData.address !== '' && userData.name !== '' && userData.userName !== '' && userData.status !== '') {
+            console.log('userData has been updated:', userData);
+            setDisabled(false)
+        }
+    }, [userData]);
 
     console.log(userData)
 
@@ -85,25 +105,25 @@ export default function ConnectWallet() {
                         {/* profile */}
                         <div>
                             {!profile &&
-                                <div>
+                                <div className='flex flex-col'>
+                                    <span className='text-white mt-2 text-lg shadow-lg'>
+                                        Create Account before entering the game
+                                    </span>
                                     <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
                                         <DialogTrigger asChild>
                                             <StyledButton className='bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Profile </StyledButton>
                                         </DialogTrigger>
                                         <DialogContent className=" w-fit">
-                                            <CreateProfilePopUp openHandler={openHandler} accounts={accounts}/>
+                                            <CreateProfilePopUp openHandler={openHandler} accounts={accounts} />
                                         </DialogContent>
                                     </Dialog>
                                 </div>
                             }
-                            <Link href='/create'>
-                                <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Table </StyledButton>
-                            </Link>
+                            <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-6' onClick={() => router.push(`/game?gameId=${gameId}`)} disabled={disabled}>Enter Game </StyledButton>
                         </div>
 
                     </div>
                 }
-
             </div>
         </div>
     )

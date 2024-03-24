@@ -17,11 +17,10 @@ export default function GameInfo() {
   const { data: roundResult, mutate: roundResultMutate } = useSWR('local:roundResult', stateFetcher)
   const { data: gameCurrentBetChips, mutate: gameCurrentBetChipsMutate } = useSWR('local:gameCurrentBetChips', stateFetcher)
   const { data: roundWinner, mutate: roundWinnerMutate } = useSWR('local:roundWinner', stateFetcher)
-  
+
   return (
     // Outer container for game info
     <div className='absolute top-0 w-full font-bold text-gray-700 left-0 text-center'>
-
       <div className='betting-chips-container'>
 
         <div className='bet-info'>LOW: {gameData?.lowBetChips}</div>
@@ -40,7 +39,7 @@ export default function GameInfo() {
       <div className='game-level-info'>
         <div className='progress-bar'>
 
-          <div className='progress' style={{ width: `${gameRoom?.currRound/gameRoom?.totalRounds * 100}%` }}></div>
+          <div className='progress' style={{ width: `${gameRoom?.currRound / gameRoom?.totalRounds * 100}%` }}></div>
           <span className='level-text'>LEVEL: 1/{gameData?.totalRounds}</span>
         </div>
       </div>

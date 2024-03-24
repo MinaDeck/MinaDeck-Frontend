@@ -18,6 +18,20 @@ export const checkAddress = async (addressToCheck) => {
     }
 };
 
+export const getUserData = async (address) => {
+    try {
+
+        const response = await axios.post('/api/get-user', { address: address[0] });
+        const data = response.data;
+
+        return data;
+
+    } catch (error) {
+        console.error('error:', error);
+        return error
+    }
+};
+
 
 export const addPlayerData = async (address, formData) => {
     try {
