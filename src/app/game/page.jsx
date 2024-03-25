@@ -11,7 +11,7 @@ export default function ConnectWallet() {
     const [walletConnected, setWalletConnected] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
     const [accounts, setAccounts] = useState(null);
-    const [profile, setProfile] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false)
 
     const { userData, setUserData } = useUserData();
@@ -25,14 +25,19 @@ export default function ConnectWallet() {
     const gameId = searchParams.get('gameId');
 
     useEffect(() => {
-        if (userData.id == "" || userData == null || userData == undefined) {
-            router.push(`/game/check?gameId=${gameId}`)
-        }
-    },[])
+        const delay = 2000;
+        const timeout = setTimeout(() => {
+            setLoading(false);
+        }, delay);
 
-    const openHandler = () => {
-        setOpen(false)
-    }
+        return () => clearTimeout(timeout);
+    }, [userData]);
+
+    useEffect(() => {
+        if (!loading && (userData.id == "" || userData == null || userData == undefined)) {
+            router.push(`/game/check?gameId=${gameId}`);
+        }
+    }, [loading, userData]);
 
     if (!gameId || !/^[a-f\d]{8}$/i.test(gameId)) {
         // Validate gameId format

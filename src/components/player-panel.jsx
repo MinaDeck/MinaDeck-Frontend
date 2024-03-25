@@ -2,7 +2,7 @@ import stateFetcher from '@/fetcher/state'
 import useSWR from 'swr'
 import Player from './player'
 import StyledButton from './styled-button'
-import { useCurrentGameRoom } from '@/hooks/use-game-room'
+import { useCurrentGameRoom } from '@/hooks/useGameRoom'
 import { useState } from 'react'
 
 

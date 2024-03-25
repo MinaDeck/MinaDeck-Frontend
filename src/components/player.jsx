@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Avatar from './avatar'
 import PlayingCard from './cards'
 import { displayAddress } from '@/util'
-import { useCurrentGameRoom } from '@/hooks/use-game-room'
+import { useCurrentGameRoom } from '@/hooks/useGameRoom'
 
 // Defines the Player component with props for avatar, user, game state, etc.
 export default function Player({

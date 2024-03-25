@@ -13,6 +13,7 @@ export function useUserData() {
     useEffect(() => {
         // Retrieve game data from local storage
         const storedUserData = localStorage.getItem('userData');
+        // console.log('User data loaded from local storage 1', storedUserData)
         // If stored game data is found, update the state with this data
         if (storedUserData) {
             setUserData(prevUserData => ({ ...prevUserData, ...JSON.parse(storedUserData) }));
@@ -23,7 +24,7 @@ export function useUserData() {
     // useEffect hook to save game data to local storage when it changes
     useEffect(() => {
         // Check if the size is not zero to avoid saving default/empty values
-        if (userData) {
+        if (!(userData.id == "")) {
             // Save updated game data to local storage
             localStorage.setItem('userData', JSON.stringify(userData));
             console.log('User data saved to local storage 1', userData);
