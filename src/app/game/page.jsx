@@ -5,6 +5,7 @@ import { useRef, useEffect, useState } from 'react'
 import { useUserData } from '@/hooks/useUserData';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react';
 
 export default function ConnectWallet() {
 
@@ -45,6 +46,8 @@ export default function ConnectWallet() {
     }
 
     return (
-        <GameRoom gameId={gameId} />
+        <Suspense>
+            <GameRoom gameId={gameId} />
+        </Suspense>
     )
 }
