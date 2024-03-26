@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 // Custom hook for managing game data
 export function useUserData() {
     // State to store game data with initial default values
-    const [userData, setUserData] = useState({ id: "", address: "", name: "", userName: "", status: "" });
+    const [userData, setUserData] = useState({ userId: "", address: "", name: "", userName: "", status: "" });
 
     // useEffect hook to load game data from local storage when the component mounts
     useEffect(() => {
@@ -24,7 +24,7 @@ export function useUserData() {
     // useEffect hook to save game data to local storage when it changes
     useEffect(() => {
         // Check if the size is not zero to avoid saving default/empty values
-        if (!(userData.id == "")) {
+        if (!(userData.userId == "")) {
             // Save updated game data to local storage
             localStorage.setItem('userData', JSON.stringify(userData));
             console.log('User data saved to local storage 1', userData);

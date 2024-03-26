@@ -19,12 +19,18 @@ wss.on('connection', function connection(ws, req) {
     const gameData = dataMap.get(gameId) || [];
 
     // Add the new data to the array
-    gameData.push(data);
+    if (data.state == undefined) {
+      gameData.push(data);
 
-    // Store the updated data array back in the map
-    dataMap.set(gameId, gameData);
-
-    ws.send(JSON.stringify({ state: 'success' }));
+      // Store the updated data array back in the map
+      dataMap.set(gameId, gameData);
+    }
+    console.log(JSON.stringify(gameData))
+    if (gameData) {
+      ws.send(JSON.stringify(gameData));
+    } else {
+      ws.send(JSON.stringify({ state: 'error', message: 'Data not found' }));
+    }
   });
 
   ws.on('close', function close() {
