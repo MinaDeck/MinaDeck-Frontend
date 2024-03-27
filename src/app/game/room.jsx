@@ -45,8 +45,13 @@ export default function GameRoom({ gameId }) {
 
   const { userData, setUserData } = useUserData();
 
-  const gameServer = useGameRoom(gameId)
-  console.log(userData)
+  let gameServer = useGameRoom(gameId)
+
+  useEffect(() => {
+    if (gameServer.data) {
+      gameServer.send(JSON.stringify({ state: "read data" }));
+    }
+  }, [gameServer.data]);
 
   useEffect(() => {
     const delay = 2000;
@@ -59,13 +64,15 @@ export default function GameRoom({ gameId }) {
 
   useEffect(() => {
     const state = gameServer?.data ?? {}
-
     console.log(state)
+
     if (!loading) {
-      stateFetcher('local:gamePlayerInfo', { id: userData.id, state: 0, isBanker: true }).then(gamePlayerInfoMutate)
+      stateFetcher('local:gamePlayerInfo', state[0]?.user).then(gamePlayerInfoMutate)
     }
 
   }, [gameServer.data, loading])
+
+  console.log(gamePlayerInfo)
 
   return (
     <>

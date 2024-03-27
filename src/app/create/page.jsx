@@ -1,35 +1,41 @@
 'use client'
-import { UserCircleIcon, PhotoIcon } from '@heroicons/react/24/solid'
-// import WithSignined from './with-signin'
-import { RadioGroup } from '@headlessui/react'
+import { useGameRoom } from '@/hooks/useGameRoom'
 import { useCallback, useEffect, useState, useRef } from 'react'
 import classNames from 'classnames'
-import { useRouter } from 'next/navigation'
-import useLocalStorageState from 'use-local-storage-state'
 import StyledButton from '@/components/styled-button'
-import SVGText from '@/components/svg-text'
 import NavigationToolbar from '@/components/navigation-toolbar'
-import aleoFetcher from '@/fetcher/aleo'
-import { encodeBs58 } from '@/util'
 import ShareLink from '@/components/share-link'
 import { useGameData } from '@/hooks/useGameData'
 import { v4 } from 'uuid'
 import { createPokerGame } from '@/util/databaseFunctions'
+import { useUserData } from '@/hooks/useUserData'
+import { useRouter } from 'next/navigation'
 
 
 export default function CreateGamePage() {
 
-    const router = useRouter()
     const { gameData, setGameData } = useGameData();
+    const router = useRouter()
 
     const [minimum, setMinimum] = useState(2)
     const [lowBetChips, setLowBetChips] = useState(2)
     const [topBetChips, setTopBetChips] = useState(20)
     const [totalRounds, setTotalRounds] = useState(2)
     const [gameId, setGameId] = useState("")
+    const [apiCall, setApiCall] = useState(0)
 
     const [handleSubmitState, setHandleSubmitState] = useState(false)
     const [coLoading, setCoLoading] = useState(false);
+    const { userData, setUserData } = useUserData();
+
+    const gameServer = useGameRoom(gameId)
+
+    useEffect(() => {
+        if (gameServer.data && apiCall == 0) {
+            gameServer.send(JSON.stringify({ user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false }] }));
+            setApiCall(1);
+        }
+    }, [gameServer.data]);
 
     const handleCreateGame = async () => {
         try {
@@ -56,7 +62,6 @@ export default function CreateGamePage() {
             console.log("error", e)
             setCoLoading(false);
         }
-
     };
 
     return (
@@ -130,10 +135,18 @@ export default function CreateGamePage() {
                     <StyledButton
                         className="text-lg bg-[#00b69a]"
                         onClick={handleCreateGame}
-
+                        disabled={userData.userId == ""}
                     >
                         CREATE A GAME
                     </StyledButton>
+                    {userData.userId == "" &&
+                        <StyledButton
+                            className="text-lg bg-[#00b69a] ml-10"
+                            onClick={() => router.push("/play")}
+                        >
+                            CREATE PROFILE
+                        </StyledButton>
+                    }
                 </div>
             </div>
 

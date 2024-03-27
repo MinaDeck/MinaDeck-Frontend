@@ -21,6 +21,7 @@ export default function Player({
 }) {
   const { data: gameCountdown, mutate: gameCountdownMutate } = useSWR('local:gameCountdown', stateFetcher)
   const showCountdown = user.userId === gameCountdown?.userId
+  console.log(user)
 
   const { data: gamePK, mutate: gamePKMutate } = useSWR('local:gamePK', stateFetcher)
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)

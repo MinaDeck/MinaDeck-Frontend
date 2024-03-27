@@ -18,7 +18,7 @@ export default function ConnectWallet() {
     const [userInfo, setUserInfo] = useState(null);
     const [accounts, setAccounts] = useState(null);
     const [profile, setProfile] = useState(false);
-    const [open,setOpen] = useState(false)
+    const [open, setOpen] = useState(false)
 
     const { userData, setUserData } = useUserData();
 
@@ -29,41 +29,37 @@ export default function ConnectWallet() {
             const collectAccounts = await window.mina.requestAccounts()
             setAccounts(collectAccounts);
             console.log(collectAccounts)
-            // let data = { id: "", address: "", name: "", userName: "", status: "" };
-            // if (collectAccounts) {
-            //     setWalletConnected(true)
-            //     console.log("check address", await checkAddress(collectAccounts))
-            //     checkAddress(collectAccounts).then((res) => {
-            //         console.log("res:", res);
-            //         if (res) {
-            //             setProfile(true)
-            //         }
-            //     })
-            //     data = await getUserData(collectAccounts)
-            // }
+            let data = { id: "", address: "", name: "", userName: "", status: "" };
+            if (collectAccounts) {
+                setWalletConnected(true)
+                console.log("check address", await checkAddress(collectAccounts))
+                checkAddress(collectAccounts).then((res) => {
+                    console.log("res:", res);
+                    if (res) {
+                        setProfile(true)
+                    }
+                })
+                data = await getUserData(collectAccounts)
+            }
 
-            // console.log("data",data.response[0])
+            console.log("data", data.response[0])
 
-            // setUserData({
-            //     id: data.response[0].id,
-            //     name: data.response[0].name,
-            //     userName: data.response[0].userName,
-            //     status: data.response[0].status,
-            //     address: data.response[0].address,
-            // });
+            setUserData({
+                userId: data.response[0].id,
+                name: data.response[0].name,
+                userName: data.response[0].userName,
+                status: data.response[0].status,
+                address: data.response[0].address,
+            });
 
         } catch (error) {
             console.log(error.message, error.code)
         }
     }
 
-    console.log(userData)
-
     const openHandler = () => {
         setOpen(false)
     }
-
-    console.log(open)
 
     return (
         <div className='bg-white w-[1280px] h-[720px] overflow-hidden mx-auto my-8 px-4 py-2 rounded-lg bg-cover bg-[url("/bg-2.jpg")] relative shadow-[0_0_20px_rgba(0,0,0,0.8)]'>
@@ -91,7 +87,7 @@ export default function ConnectWallet() {
                                             <StyledButton className='bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Profile </StyledButton>
                                         </DialogTrigger>
                                         <DialogContent className=" w-fit">
-                                            <CreateProfilePopUp openHandler={openHandler} accounts={accounts}/>
+                                            <CreateProfilePopUp openHandler={openHandler} accounts={accounts} />
                                         </DialogContent>
                                     </Dialog>
                                 </div>
