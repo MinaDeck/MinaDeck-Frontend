@@ -5,8 +5,12 @@ import GetStarted from "@/components/homePage/GetStarted"
 import Feedback from "@/components/homePage/Feedback"
 import Footer from "@/components/homePage/Footer"
 import About from "@/components/homePage/About"
+import { cardNumber, shuffleCard } from "@/constants"
 
 export default function Home() {
+
+  console.log(shuffleCard())
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className=" overflow-hidden">

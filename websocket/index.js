@@ -13,14 +13,22 @@ wss.on('connection', function connection(ws, req) {
     console.log('Received: %s', gameId);
 
     // Parse the message
-    const data = JSON.parse(message);
-    console.log(data)
+    const newData = JSON.parse(message);
+    console.log(newData)
 
-    const gameData = dataMap.get(gameId) || [];
+    let gameData = dataMap.get(gameId) || [];
 
-    // Add the new data to the array
-    if (data.state == undefined) {
-      gameData.push(data);
+    if (newData.state == undefined) {
+      // Check if gameData already contains an object with a 'user' key
+      const existingUserData = gameData.find(obj => obj.hasOwnProperty('user'));
+
+      if (existingUserData) {
+        // Append the new data to the 'user' array
+        existingUserData.user.push(...newData.user);
+      } else {
+        // Insert the complete object into gameData
+        gameData.push(newData);
+      }
 
       // Store the updated data array back in the map
       dataMap.set(gameId, gameData);
@@ -32,6 +40,7 @@ wss.on('connection', function connection(ws, req) {
       ws.send(JSON.stringify({ state: 'error', message: 'Data not found' }));
     }
   });
+
 
   ws.on('close', function close() {
     console.log('Client disconnected');

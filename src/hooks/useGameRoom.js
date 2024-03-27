@@ -52,7 +52,7 @@ export function useGameRoom(gameId) {
   const send = (message) => {
     console.log(message)
     const socket = wsMap.get(`${gameId}`);
-    if (socket) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(message);
     }
   };
@@ -78,5 +78,5 @@ export function useCurrentGameRoom() {
   const [userInfo] = useLocalStorageState('userinfo');
   const gameId = useSearchParams().get('gameId');
 
-  return useGameRoom(gameId, userInfo?.token);
+  return useGameRoom(gameId);
 }

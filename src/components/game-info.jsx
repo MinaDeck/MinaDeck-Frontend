@@ -26,21 +26,19 @@ export default function GameInfo() {
         <div className='bet-info'>LOW: {gameData?.lowBetChips}</div>
         <div className='bet-info'>TOP: {gameData?.topBetChips}</div>
 
-        <div className='tabled-chips-info'>
-
+        {/* <div className='tabled-chips-info'>
           {
             tabledChips?.reduce?.((t, { value }) => t + value, 0).toString().padStart(4, '0').split('').map((c, i) => {
               // Each digit of the total chips is rendered here
               return <div key={`c_${i}`} className='chip-digit'>{c}</div>
             })
           }
-        </div>
-      </div>
-      <div className='game-level-info'>
-        <div className='progress-bar'>
-
-          <div className='progress' style={{ width: `${gameRoom?.currRound / gameRoom?.totalRounds * 100}%` }}></div>
-          <span className='level-text'>LEVEL: 1/{gameData?.totalRounds}</span>
+        </div> */}
+        <div className='flex justify-center'>
+          <div className=' bg-gray-800 w-[200px] rounded-xl shadow-inner relative z-0 overflow-hidden'>
+            <div className='bg-green-800 absolute h-full z-10' style={{ width: `${gameRoom?.currRound / gameRoom?.totalRounds * 100}%` }}></div>
+            <span className='text-gray-200 z-20 relative'>LEVEL: 1/{gameData?.totalRounds}</span>
+          </div>
         </div>
       </div>
     </div>

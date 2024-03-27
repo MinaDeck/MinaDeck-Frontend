@@ -93,7 +93,6 @@ export default function Player({
           <div className={classNames('flex scale-75 pointer-events-none', user.state === 0 || gameRoom.state === 0 ? 'invisible2' : '')}>
             <PlayingCard value={cards?.[0]} back={user.userId ? 'back0' : 'back2'} className={classNames('', isCurrentPlayer ? '' : 'w-10')} />
             <PlayingCard value={cards?.[1]} back={user.userId ? 'back0' : 'back2'} className={classNames('', isCurrentPlayer ? '' : 'w-10')} />
-            <PlayingCard value={cards?.[2]} back={user.userId ? 'back0' : 'back2'} className={classNames('', isCurrentPlayer ? '' : 'w-10')} />
           </div>
           {allowPK && showPK && <div className='absolute cursor-pointer border-[#00ffcc] text-[#00ffcc] font-black animate-pulse -inset-x-5 inset-y-0 rounded-3xl border-[6px] translate-x-5'
             onClick={() => {

@@ -10,6 +10,8 @@ import { v4 } from 'uuid'
 import { createPokerGame } from '@/util/databaseFunctions'
 import { useUserData } from '@/hooks/useUserData'
 import { useRouter } from 'next/navigation'
+import useSWR from 'swr'
+import stateFetcher from '@/fetcher/state'
 
 
 export default function CreateGamePage() {
@@ -27,13 +29,14 @@ export default function CreateGamePage() {
     const [handleSubmitState, setHandleSubmitState] = useState(false)
     const [coLoading, setCoLoading] = useState(false);
     const { userData, setUserData } = useUserData();
+    const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
 
     const gameServer = useGameRoom(gameId)
 
     useEffect(() => {
-        if (gameServer.data && apiCall == 0) {
+        if (gameServer.data && (apiCall == 0 || apiCall == 1)) {
             gameServer.send(JSON.stringify({ user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false }] }));
-            setApiCall(1);
+            setApiCall((prev) => prev + 1);
         }
     }, [gameServer.data]);
 
@@ -54,6 +57,7 @@ export default function CreateGamePage() {
             });
 
             await createPokerGame(id, minimum, lowBetChips, topBetChips, totalRounds)
+            stateFetcher('local:gameRoom', { state: "ready" }).then(gameRoomMutate)
 
             setCoLoading(false);
             setHandleSubmitState(true);
@@ -156,7 +160,7 @@ export default function CreateGamePage() {
                         <div className='inline-block w-40 h-40 bg-no-repeat bg-center bg-[url("/loading-icon.png")]'>
                             <div className='w-40 h-40 bg-no-repeat bg-center bg-[url("/loading-icon-fg.png")] animate-[spin_1.6s_linear_infinite]'></div>
                         </div>
-                        <p className='text-2xl font-black my-8'>Data cochain ...</p>
+                        <p className='text-2xl font-black my-8'>Creating Game ...</p>
                         <p>It is expected to take 4-5 minutes,</p>
                         <p>please be patient!</p>
                         <StyledButton className='bg-[#ff9000] m-8' roundedStyle='rounded-full' onClick={() => { setCoLoading(false) }}>
