@@ -11,6 +11,7 @@ const memoryData = {
   gameResult: {},
   gameCurrentBetChips: 0,
   gameMessages: [],
+  gamePlayerInfo:[],
 }
 globalThis.$DATA$ = memoryData
 

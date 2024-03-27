@@ -6,7 +6,7 @@ import useSWR, { mutate } from 'swr'
 import stateFetcher from '@/fetcher/state'
 import { useState } from 'react'
 import classNames from 'classnames'
-import { useCurrentGameRoom } from '@/hooks/use-game-room'
+import { useCurrentGameRoom } from '@/hooks/useGameRoom'
 
 function SelectableChips({ value, checked, setChecked }) {
   return (
