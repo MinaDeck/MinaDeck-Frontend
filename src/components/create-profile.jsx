@@ -2,8 +2,6 @@ import FrameBox from './frame-box'
 import StyledButton from './styled-button'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { DocumentDuplicateIcon } from '@heroicons/react/24/outline'
 import { addPlayerData } from '@/util/databaseFunctions'
 import { FaStarOfLife } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
