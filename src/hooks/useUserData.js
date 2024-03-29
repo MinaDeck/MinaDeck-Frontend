@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 // Custom hook for managing game data
 export function useUserData() {
     // State to store game data with initial default values
-    const [userData, setUserData] = useState({ userId: "", address: "", name: "", userName: "", status: "" });
+    const [userData, setUserData] = useState({ userId: "", address: "", name: "", userName: "", status: "", tokenAmount: 0 });
 
     // useEffect hook to load game data from local storage when the component mounts
     useEffect(() => {

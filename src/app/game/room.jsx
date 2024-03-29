@@ -77,7 +77,7 @@ export default function GameRoom({ gameId }) {
   return (
     <>
       <div className='hidden scale-[0.975]'></div>
-      <div className='game-panel transition-transform relative w-[1280px] h-[720px] m-20 mx-auto bg-[url("/bg-3.jpg")] select-none rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8)]'
+      <div className='game-panel transition-transform relative w-[1280px] h-[720px] m-20 mt-10 mx-auto bg-[url("/bg-3.jpg")] select-none rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8)]'
         onTransitionEnd={e => {
           e.target.classList.remove('scale-[0.975]')
         }}

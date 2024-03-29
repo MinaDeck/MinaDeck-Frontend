@@ -12,6 +12,7 @@ import { useUserData } from '@/hooks/useUserData'
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import stateFetcher from '@/fetcher/state'
+import TokenInfoBar from '@/components/TokenBar'
 
 
 export default function CreateGamePage() {
@@ -69,9 +70,9 @@ export default function CreateGamePage() {
     };
 
     return (
-        <>
+        <div className='relative'>
+            <TokenInfoBar />
             <div className='bg-white w-[1280px] h-[720px] overflow-hidden mx-auto my-8 px-4 py-2 rounded-lg bg-cover bg-[url("/bg-2.jpg")] relative shadow-[0_0_20px_rgba(0,0,0,0.8)]'>
-                {/* <div className='absolute top-5 left-5 w-40 h-40 bg-no-repeat bg-[url("/logo.png")]'></div> */}
                 <div className='absolute inset-0 bg-no-repeat bg-[url("/table-1.png")]'></div>
                 <div className='absolute left-8 -right-8 top-14 -bottom-14 bg-no-repeat bg-[url("/dealer.png")] transform-gpu'>
                     <div className='absolute -left-8 right-8 -top-14 bottom-14 bg-no-repeat bg-[url("/card-0.png")] animate-floating'></div>
@@ -170,7 +171,7 @@ export default function CreateGamePage() {
                 </div>
             </div>}
             {(handleSubmitState && gameId) && <ShareLink link={`/game?gameId=${gameId}`} />}
-        </>
+        </div>
     )
 }
 

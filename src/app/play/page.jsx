@@ -12,25 +12,27 @@ import {
 import { checkAddress, getUserData } from '@/util/databaseFunctions';
 import { useUserData } from '@/hooks/useUserData';
 import TokenInfoBar from '@/components/TokenBar';
+import { useRouter } from 'next/navigation';
 
 export default function ConnectWallet() {
 
     const [walletConnected, setWalletConnected] = useState(false);
-    const [userInfo, setUserInfo] = useState(null);
     const [accounts, setAccounts] = useState(null);
     const [profile, setProfile] = useState(false);
     const [open, setOpen] = useState(false)
 
-    const { userData, setUserData } = useUserData();
+    const { userData, setUserData } = useUserData(null);
+    const router = useRouter()
 
     const dealerRef = useRef(null);
+    console.log(userData)
 
     const connectWallet = async () => {
         try {
             const collectAccounts = await window.mina.requestAccounts()
             setAccounts(collectAccounts);
             console.log(collectAccounts)
-            let data = { id: "", address: "", name: "", userName: "", status: "" };
+            let data = { id: "", address: "", name: "", userName: "", status: "", tokenAmount: "" };
             if (collectAccounts) {
                 setWalletConnected(true)
                 console.log("check address", await checkAddress(collectAccounts))
@@ -43,7 +45,7 @@ export default function ConnectWallet() {
                 data = await getUserData(collectAccounts)
             }
 
-            console.log("data", data.response[0])
+            localStorage.setItem('wallet-address', collectAccounts[0])
 
             setUserData({
                 userId: data.response[0].id,
@@ -51,7 +53,9 @@ export default function ConnectWallet() {
                 userName: data.response[0].userName,
                 status: data.response[0].status,
                 address: data.response[0].address,
+                tokenAmount: amount
             });
+
 
         } catch (error) {
             console.log(error.message, error.code)
@@ -64,7 +68,7 @@ export default function ConnectWallet() {
 
     return (
         <div className='relative'>
-            <TokenInfoBar account={accounts}/>
+            <TokenInfoBar />
             <div className='bg-white w-[1280px] h-[720px] overflow-hidden mx-auto my-8 px-4 py-2 rounded-lg bg-cover bg-[url("/bg-2.jpg")] relative shadow-[0_0_20px_rgba(0,0,0,0.8)]'>
                 {/* <div className='absolute top-5 left-5 w-40 h-40 bg-no-repeat bg-[url("/logo.png")]'></div> */}
                 <div className='absolute inset-0 bg-no-repeat bg-[url("/table-1.png")]'></div>
@@ -95,11 +99,8 @@ export default function ConnectWallet() {
                                         </Dialog>
                                     </div>
                                 }
-                                <Link href='/create'>
-                                    <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Table </StyledButton>
-                                </Link>
+                                <StyledButton onClick={() => router.push("/create")} disabled={userData.userId == "" ? true : false} className='w-full bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Table </StyledButton>
                             </div>
-
                         </div>
                     }
 

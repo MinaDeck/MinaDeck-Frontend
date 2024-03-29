@@ -6,6 +6,7 @@ import { useUserData } from '@/hooks/useUserData';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react';
+import TokenInfoBar from '../TokenBar';
 
 export default function Game() {
 
@@ -46,6 +47,9 @@ export default function Game() {
     }
 
     return (
-        <GameRoom gameId={gameId} />
+        <div>
+            <TokenInfoBar />
+            <GameRoom gameId={gameId} />
+        </div>
     )
 }
