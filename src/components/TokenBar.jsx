@@ -24,15 +24,20 @@ export default function TokenInfoBar() {
         setOpen(false)
     }
 
+    const ISSERVER = typeof window === "undefined";
+
     const [tokenAmount, setTokenAmount] = useState(0);
 
     useEffect(() => {
         // Retrieve game data from local storage
-        const storedUserData = localStorage.getItem('amount');
-
-        if (storedUserData) {
-            setTokenAmount(storedUserData);
+        if (!ISSERVER) {
+            const storedUserData = localStorage.getItem('amount');
+            
+            if (storedUserData) {
+                setTokenAmount(storedUserData);
+            }
         }
+
     }, [balance]);
 
     return (
@@ -55,7 +60,7 @@ export default function TokenInfoBar() {
                     </Dialog>
                 </span>
                 <Avatar>
-                    <AvatarImage src={`https://api.dicebear.com/8.x/notionists/svg?seed=${localStorage.getItem('wallet-address')}`} alt="@user" />
+                    <AvatarImage src={`https://api.dicebear.com/8.x/notionists/svg`} alt="@user" />
                     <AvatarFallback>MD</AvatarFallback>
                 </Avatar>
             </div>

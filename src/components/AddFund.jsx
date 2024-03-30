@@ -26,23 +26,27 @@ export default function AddFundPopUp({ openHandler, balance, setBalance }) {
         setAmount(total)
     };
 
-    console.log(localStorage.getItem('amount'))
+    const ISSERVER = typeof window === "undefined";
 
     const [tokenAmount, setTokenAmount] = useState(0);
 
     useEffect(() => {
-        // Retrieve game data from local storage
-        const storedUserData = localStorage.getItem('amount');
+        if (!ISSERVER) {
+            // Retrieve game data from local storage
+            const storedUserData = localStorage.getItem('amount');
 
-        if (storedUserData) {
-            setTokenAmount(storedUserData);
+            if (storedUserData) {
+                setTokenAmount(storedUserData);
+            }
         }
     }, [balance]);
 
     const BuyToken = () => {
-        setBalance(amount)
-        const previousAmount = localStorage.getItem('amount')
-        localStorage.setItem('amount', parseInt(previousAmount) + amount);
+        if (!ISSERVER) {
+            setBalance(amount)
+            const previousAmount = localStorage.getItem('amount')
+            localStorage.setItem('amount', parseInt(previousAmount) + amount);
+        }
     }
 
     return (
@@ -86,7 +90,7 @@ export default function AddFundPopUp({ openHandler, balance, setBalance }) {
                             <DialogHeader>
                                 <DialogTitle>Success 🎉</DialogTitle>
                                 <DialogDescription className="text-lg">
-                                    <img className='m-auto animate-bounce' src="/avatar-robot.png"/>
+                                    <img className='m-auto animate-bounce' src="/avatar-robot.png" />
                                     Your Token have been successfully added to your Balance
                                 </DialogDescription>
                             </DialogHeader>

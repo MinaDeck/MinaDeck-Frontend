@@ -14,7 +14,7 @@ import { useUserData } from '@/hooks/useUserData';
 import TokenInfoBar from '@/components/TokenBar';
 import { useRouter } from 'next/navigation';
 
-export default function ConnectWallet() {
+export default function PlayGame() {
 
     const [walletConnected, setWalletConnected] = useState(false);
     const [accounts, setAccounts] = useState(null);
@@ -27,12 +27,14 @@ export default function ConnectWallet() {
     const dealerRef = useRef(null);
     console.log(userData)
 
+    const ISSERVER = typeof window === "undefined";
+
     const connectWallet = async () => {
         try {
             const collectAccounts = await window.mina.requestAccounts()
             setAccounts(collectAccounts);
             console.log(collectAccounts)
-            let data = { id: "", address: "", name: "", userName: "", status: "", tokenAmount: "" };
+            let data = { id: "", address: "", name: "", userName: "", status: "" };
             if (collectAccounts) {
                 setWalletConnected(true)
                 console.log("check address", await checkAddress(collectAccounts))
@@ -45,7 +47,9 @@ export default function ConnectWallet() {
                 data = await getUserData(collectAccounts)
             }
 
-            localStorage.setItem('wallet-address', collectAccounts[0])
+            if (!ISSERVER) {
+                localStorage.setItem('wallet-address', collectAccounts[0])
+            }
 
             setUserData({
                 userId: data.response[0].id,
@@ -53,7 +57,6 @@ export default function ConnectWallet() {
                 userName: data.response[0].userName,
                 status: data.response[0].status,
                 address: data.response[0].address,
-                tokenAmount: amount
             });
 
 
@@ -78,7 +81,7 @@ export default function ConnectWallet() {
                 <div className='absolute top-0 left-1/2 right-0 bottom-0 pr-20 py-12'>
                     <div className='relative text-center flex justify-center'>
                         <img src='/login-button-bg.png' />
-                        <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>Connect Wallet</StyledButton>
+                        <StyledButton data-testid="connect" roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>Connect Wallet</StyledButton>
                     </div>
                     {accounts &&
                         <div className='flex flex-col items-center'>

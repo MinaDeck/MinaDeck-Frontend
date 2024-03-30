@@ -3,9 +3,19 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import Home from '@/app/page'
 import 'intersection-observer'
 import ConnectWallet from '@/components/ConnectWallet'
+import PlayGame from '@/app/play/page'
 
 jest.mock('../src/util/databaseFunctions', () => ({
   checkAddress: jest.fn().mockResolvedValue(true),
+}));
+
+// Mock useRouter:
+jest.mock("next/navigation", () => ({
+  useRouter() {
+    return {
+      prefetch: () => null
+    };
+  }
 }));
 
 describe('Landing Page', () => {
@@ -18,22 +28,6 @@ describe('Landing Page', () => {
       expect(heading).toBeInTheDocument();
     });
   })
-
-
-  it('should render a dialog box when "Start Game" button is clicked', async () => {
-    render(<Home />);
-
-    // Check if dialog box is initially not rendered
-    expect(screen.queryByRole('dialog')).toBeNull();
-
-    // Click the "Start Game" button
-    const startGameButton = screen.getByText('Start Game');
-    fireEvent.click(startGameButton);
-
-    // Check if dialog box is rendered after clicking the button
-    const dialog = await screen.findByRole('dialog');
-    expect(dialog).toBeInTheDocument();
-  });
 
   it('should connect to wallet when "Connect Wallet" button is clicked', async () => {
     // Mock window.mina.requestAccounts
@@ -81,20 +75,9 @@ test('renders all components successfully', () => {
   });
 });
 
-describe('ConnectWallet integration', () => {
-  it('integration test to connect to wallet when "Start Game" button is clicked', async () => {
-    render(<Home />);
-
-    // Check if dialog is not visible initially
-    expect(screen.queryByRole('dialog')).toBeNull();
-
-    // Click the "Start Game" button to open dialog
-    const startGameButton = screen.getByText('Start Game');
-    fireEvent.click(startGameButton);
-
-    // Wait for dialog to be visible
-    const dialog = await screen.findByRole('dialog');
-    expect(dialog).toBeInTheDocument();
+describe('Wallet Connection integration', () => {
+  it('integration test to connect to wallet when "Connect Wallet" button is clicked', async () => {
+    render(<PlayGame />);
 
     window.mina = {
       requestAccounts: jest.fn().mockResolvedValue(['B62qq6EoK6cCHUs7LA1MEQduGZDyov6GpXwB8xbqQuSkchMm1xDrcY6']),

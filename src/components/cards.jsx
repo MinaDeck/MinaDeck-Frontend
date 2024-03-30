@@ -44,8 +44,6 @@ while (cardMap.size < 52) {
   cardMap.set((baseIndex + 2) * 10 + suitIndex + 1, cardSet[`${suits[suitIndex]} ${values[baseIndex]}`]);
 }
 
-console.log(cardSet)
-
 // Component to render a playing card
 export default function PlayingCard({
   value, // Numerical value representing the card
