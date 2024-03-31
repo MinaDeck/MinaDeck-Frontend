@@ -23,6 +23,7 @@ export default function ShareLink({ onClose, link }) {
       title={<div className='bg-[url("/title-share.png")] bg-no-repeat bg-top h-[96px] -translate-y-1/2'></div>}
       onClose={onClose} // onClose prop for closing the component
       showClose={false} // Option to hide the close button
+      data-testid="share link"
     >
       <div className='w-[560px] m-10 mb-4 text-center text-white'>
         <h4 className='text-3xl font-black'>Match created!</h4>

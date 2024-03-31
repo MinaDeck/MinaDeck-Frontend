@@ -17,6 +17,8 @@ import TokenInfoBar from '@/components/TokenBar'
 
 export default function CreateGamePage() {
 
+    const [handleSubmitState, setHandleSubmitState] = useState(false)
+    const [gameId, setGameId] = useState("")
     const { gameData, setGameData } = useGameData();
     const router = useRouter()
 
@@ -24,10 +26,8 @@ export default function CreateGamePage() {
     const [lowBetChips, setLowBetChips] = useState(2)
     const [topBetChips, setTopBetChips] = useState(20)
     const [totalRounds, setTotalRounds] = useState(2)
-    const [gameId, setGameId] = useState("")
     const [apiCall, setApiCall] = useState(0)
 
-    const [handleSubmitState, setHandleSubmitState] = useState(false)
     const [coLoading, setCoLoading] = useState(false);
     const { userData, setUserData } = useUserData();
     const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
@@ -35,9 +35,9 @@ export default function CreateGamePage() {
     const gameServer = useGameRoom(gameId)
 
     useEffect(() => {
-        if (gameServer.data && (apiCall == 0 || apiCall == 1)) {
+        if (gameServer.data && apiCall == 0) {
             gameServer.send(JSON.stringify({ user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false }] }));
-            setApiCall((prev) => prev + 1);
+            setApiCall(1);
         }
     }, [gameServer.data]);
 
@@ -141,6 +141,7 @@ export default function CreateGamePage() {
                         className="text-lg bg-[#00b69a]"
                         onClick={handleCreateGame}
                         disabled={userData.userId == ""}
+                        data-testid="create a game"
                     >
                         CREATE A GAME
                     </StyledButton>
@@ -148,6 +149,7 @@ export default function CreateGamePage() {
                         <StyledButton
                             className="text-lg bg-[#00b69a] ml-10"
                             onClick={() => router.push("/play")}
+                            data-testid="create profile"
                         >
                             CREATE PROFILE
                         </StyledButton>

@@ -4,8 +4,6 @@ import useSWR from 'swr'
 import { animated, useSpring, to } from '@react-spring/web'
 import stateFetcher from '@/fetcher/state'
 import { useEffect, useRef, useState, useCallback } from 'react'
-import useLocalStorageState from 'use-local-storage-state'
-import Dialog from '@/components/dialog'
 import PK from '@/components/pk'
 import classNames from 'classnames'
 import { useGameRoom } from '@/hooks/useGameRoom'
@@ -14,15 +12,11 @@ import NavigationToolbar from '@/components/navigation-toolbar'
 import RoundResult from '@/components/round-result'
 import RoundWinner from '@/components/round-winner'
 import GlobalTips from '@/components/global-tips'
-import aleoFetcher from '@/fetcher/aleo'
-import { encodeBs58 } from '@/util'
 import GameInfo from '@/components/game-info'
 import { useGameData } from '@/hooks/useGameData';
 import { useUserData } from '@/hooks/useUserData'
-import PlayerInfo from '@/components/Templete_compontnts/player_info'
 
 export default function GameRoom({ gameId }) {
-  const [userInfo, setUserInfo] = useLocalStorageState('userinfo')
   const { gameData } = useGameData();
   console.log("gameData on room:", gameData);
 
@@ -81,6 +75,7 @@ export default function GameRoom({ gameId }) {
         onTransitionEnd={e => {
           e.target.classList.remove('scale-[0.975]')
         }}
+        data-testid="game room"
       >
         <NavigationToolbar />
         <GameInfo />

@@ -55,7 +55,7 @@ export default function AddFundPopUp({ openHandler, balance, setBalance }) {
             onClose={openHandler} // onClose prop for closing the component
             showClose={true} // Option to hide the close button
         >
-            <div className='w-[560px] m-10 text-center flex flex-col justify-center text-white'>
+            <div className='w-[560px] m-10 text-center flex flex-col justify-center text-white' data-testid="add fund">
                 <h4 className='text-3xl font-black'>Add Tokens to Your Fund</h4>
                 <p>Boost Your Stack, Elevate Your Game: Add Funds with Ease at Minadeck!</p>
                 <section className='flex gap-8 w-fit mx-auto mt-4 mb-4'>

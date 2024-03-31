@@ -83,7 +83,6 @@ describe('Wallet Connection integration', () => {
       requestAccounts: jest.fn().mockResolvedValue(['B62qq6EoK6cCHUs7LA1MEQduGZDyov6GpXwB8xbqQuSkchMm1xDrcY6']),
     };
 
-    // Click the "Connect Wallet" button in the dialog
     const connectWalletButton = screen.getByTestId('connect');
     expect(connectWalletButton).toBeInTheDocument();
 

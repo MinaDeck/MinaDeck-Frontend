@@ -25,7 +25,7 @@ function SelectableChips({ value, checked, setChecked }) {
 
 
 function BlankChip({ index = 0, checked, setChecked }) {
-  const gameServer = useCurrentGameRoom()
+  // const gameServer = useCurrentGameRoom()
   const { data: listBetChips, mutate: listBetChipsMutate } = useSWR('local:listBetChips', stateFetcher)
   const { data: gameCurrentBetChips, mutate: gameCurrentBetChipsMutate } = useSWR('local:gameCurrentBetChips', stateFetcher)
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
@@ -42,11 +42,11 @@ function BlankChip({ index = 0, checked, setChecked }) {
         allowControl ? 'pointer-events-auto' : 'pointer-events-none grayscale'
       )}
       onClick={ () => {
-        gameServer.send({
-          type: 4,
-          currRound: gameRoom.currRound,
-          betChips: value,
-        })
+        // gameServer.send({
+        //   type: 4,
+        //   currRound: gameRoom.currRound,
+        //   betChips: value,
+        // })
         stateFetcher('local:showChipPanel', false).then(showChipPanelMutate)
         stateFetcher('local:currentChipIndex', index).then(currentChipIndexMutate)
       }}
@@ -65,7 +65,7 @@ function BlankChip({ index = 0, checked, setChecked }) {
 }
 
 export default function BottomController() {
-  const gameServer = useCurrentGameRoom()
+  // const gameServer = useCurrentGameRoom()
 
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
@@ -86,7 +86,7 @@ export default function BottomController() {
           <StyledButton className='bg-red-600 mr-40'
             disabled={!(gameRoom?.state === 1 && gamePlayerInfo?.state === 2)}
             onClick={() => {
-              gameServer.send({ type: 3, currRound: gameRoom.currRound, isAutoBet: gamePlayerInfo.isAutoBet })
+              // gameServer.send({ type: 3, currRound: gameRoom.currRound, isAutoBet: gamePlayerInfo.isAutoBet })
             }}
           ><div className='h-10 inline-flex items-center'>FOLD</div></StyledButton>
         </div>
@@ -107,13 +107,13 @@ export default function BottomController() {
         {
           <div>
             <StyledButton className='bg-[#00bb5c]'
-              onClick={ () => {
-                gameServer.send({
-                  type: 4,
-                  currRound: gameRoom.currRound,
-                  betChips: gameCurrentBetChips,
-                })
-              } }
+              // onClick={ () => {
+              //   gameServer.send({
+              //     type: 4,
+              //     currRound: gameRoom.currRound,
+              //     betChips: gameCurrentBetChips,
+              //   })
+              // } }
               disabled={gamePlayerInfo?.isAutoBet || !allowControl}
             ><div className='h-10 inline-flex items-center'>CALL { gameCurrentBetChips ? ` : ${gameCurrentBetChips}` : '' }</div></StyledButton>
           </div>
@@ -124,7 +124,7 @@ export default function BottomController() {
         <div>
           <button
             className='grayscale-0 hover:brightness-125'
-            onClick={ () => { gameServer.send({ type: 6, currRound: gameRoom.currRound, isAutoBet: !gamePlayerInfo.isAutoBet }) } }
+            // onClick={ () => { gameServer.send({ type: 6, currRound: gameRoom.currRound, isAutoBet: !gamePlayerInfo.isAutoBet }) } }
           >
             <img className='inline-block' src={gamePlayerInfo?.isAutoBet ? '/robot-button-2.png' : '/robot-button.png' } />
           </button>

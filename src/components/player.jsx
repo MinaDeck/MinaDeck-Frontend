@@ -28,7 +28,7 @@ export default function Player({
   const { data: gameCurrentBetChips, mutate: gameCurrentBetChipsMutate } = useSWR('local:gameCurrentBetChips', stateFetcher)
 
   // Accessing game room and server-related information
-  const gameServer = useCurrentGameRoom()
+  // const gameServer = useCurrentGameRoom()
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: allowPK, mutate: allowPKMutate } = useSWR('local:allowPK', stateFetcher)
 
@@ -97,12 +97,12 @@ export default function Player({
           {allowPK && showPK && <div className='absolute cursor-pointer border-[#00ffcc] text-[#00ffcc] font-black animate-pulse -inset-x-5 inset-y-0 rounded-3xl border-[6px] translate-x-5'
             onClick={() => {
               // user.state === 0 || gameRoom.state === 0
-              gameServer.send({
-                type: 5,
-                currRound: gameRoom.currRound,
-                compareId: user.userId,
-                betChips: gameCurrentBetChips,
-              })
+              // gameServer.send({
+              //   type: 5,
+              //   currRound: gameRoom.currRound,
+              //   compareId: user.userId,
+              //   betChips: gameCurrentBetChips,
+              // })
               stateFetcher('local:allowPK', false).then(allowPKMutate)
             }}
           ><div className='relative w-full text-center -top-8'>PK</div></div>}

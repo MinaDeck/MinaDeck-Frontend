@@ -47,6 +47,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "autoprefixer": "^10.0.1",
+    "esm": "^3.2.25",
     "intersection-observer": "^0.12.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",

@@ -11,7 +11,6 @@ async function fetcher(url) {
   if(url) {
     const payload = await (await fetch(url, {
       method: 'POST',
-      // credentials: 'include',
     })).json()
     return payload
   }
