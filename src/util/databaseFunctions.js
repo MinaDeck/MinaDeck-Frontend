@@ -80,6 +80,7 @@ export const createPokerGame = async (id, size, lowBetChips, topBetChips, totalR
     }
     catch (error) {
         console.error('error:', error);
+        throw error;
     }
 }
 
