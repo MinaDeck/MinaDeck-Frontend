@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className='bg-cover bg-[url("/bg.png")]'>
+      <body className='bg-cover bg-[url("/bg.png")] backdrop-blur-xl'>
         {/* Here, the children components are rendered inside the body tag.
              The body is styled with a full cover background image,
              providing a visually appealing base for the application's content. */}

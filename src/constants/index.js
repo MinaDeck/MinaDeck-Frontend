@@ -1,7 +1,7 @@
 export const exploreWorlds = [
   {
     id: 'world-1',
-    imgUrl: '/homePage/ZK_proof.png',
+    imgUrl: '/homePage/gaming.png',
     title: 'Gaming Experience',
   },
   {
@@ -11,17 +11,17 @@ export const exploreWorlds = [
   },
   {
     id: 'world-3',
-    imgUrl: '/homePage/Secure.jpeg',
+    imgUrl: '/homePage/secure.png',
     title: 'Security',
   },
   {
     id: 'world-4',
-    imgUrl: '/homePage/Anonimity.jpeg',
+    imgUrl: '/homePage/anonymity.png',
     title: 'Anonimity',
   },
   {
     id: 'world-5',
-    imgUrl: '/homePage/User_friendly.jpeg',
+    imgUrl: '/homePage/user_friendly.png',
     title: 'User-Friendly UI',
   },
 ];
