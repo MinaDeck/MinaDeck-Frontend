@@ -26,7 +26,7 @@ const GetStarted = () => (
       >
         {/* Image component */}
         <img
-          src="/homePage/Formats.jpg"
+          src="/homePage/formats.jpg"
           alt="Formats"
           className="w-[90%] h-[90%] object-contain rounded-2xl"
         />
