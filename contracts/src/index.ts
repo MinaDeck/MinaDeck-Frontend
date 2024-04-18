@@ -1,3 +1,3 @@
-import { Add } from './Add.js';
+import { ShuffleContract } from "./Shuffle";
 
-export { Add };
+export {ShuffleContract}
