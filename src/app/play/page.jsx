@@ -20,6 +20,7 @@ export default function PlayGame() {
     const [accounts, setAccounts] = useState(null);
     const [profile, setProfile] = useState(false);
     const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const { userData, setUserData } = useUserData(null);
     const router = useRouter()
@@ -36,12 +37,16 @@ export default function PlayGame() {
             console.log(collectAccounts)
             let data = { id: "", address: "", name: "", userName: "", status: "" };
             if (collectAccounts) {
+                setLoading(true)
                 setWalletConnected(true)
                 console.log("check address", await checkAddress(collectAccounts))
                 checkAddress(collectAccounts).then((res) => {
                     console.log("res:", res);
                     if (res) {
                         setProfile(true)
+                        setLoading(false)
+                    } else {
+                        setLoading(false)
                     }
                 })
                 data = await getUserData(collectAccounts)
@@ -89,7 +94,7 @@ export default function PlayGame() {
                                 Address: {accounts.toString().slice(0, 5) + '...' + accounts.toString().slice(-5)}
                             </span>
                             {/* profile */}
-                            <div>
+                            {!loading && <div className='flex flex-col items-center'>
                                 {!profile &&
                                     <div>
                                         <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
@@ -102,8 +107,13 @@ export default function PlayGame() {
                                         </Dialog>
                                     </div>
                                 }
-                                <StyledButton onClick={() => router.push("/create")} disabled={userData.userId == "" ? true : false} className='w-full bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Table </StyledButton>
-                            </div>
+                                <StyledButton onClick={() => router.push("/create")} disabled={userData.userId == "" ? true : false} className='w-fit bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Table </StyledButton>
+                            </div> }
+                            {loading &&
+                                <div className='text-white mt-2 text-2xl shadow-lg'>
+                                    wait, till we are retriving your details...
+                                </div>
+                            }
                         </div>
                     }
 

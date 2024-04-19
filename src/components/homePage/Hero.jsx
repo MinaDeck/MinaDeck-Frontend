@@ -4,10 +4,11 @@ import { motion } from 'framer-motion';
 
 import styles from '../../styles';
 import { slideIn, staggerContainer, textVariant } from '@/util/motion';
+import Spline from '@splinetool/react-spline';
 
 const Hero = () => (
-  <section className={`${styles.yPaddings} sm:pl-16 pl-6`}>
-    <motion.div
+  <section className={`${styles.yPaddings} `}>
+    {/* <motion.div
       variants={staggerContainer}
       initial="hidden"
       whileInView="show"
@@ -49,7 +50,8 @@ const Hero = () => (
           </div>
         </a>
       </motion.div>
-    </motion.div>
+    </motion.div> */}
+    <Spline scene="https://prod.spline.design/PP5UHnFUA0YPE-z0/scene.splinecode" />
   </section>
 );
 

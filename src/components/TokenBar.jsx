@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import AddFundPopUp from "./AddFund";
 import { useUserData } from "@/hooks/useUserData";
 import Link from "next/link";
+import { IoMdAdd } from "react-icons/io";
 
 export default function TokenInfoBar() {
 
@@ -32,7 +33,7 @@ export default function TokenInfoBar() {
         // Retrieve game data from local storage
         if (!ISSERVER) {
             const storedUserData = localStorage.getItem('amount');
-            
+
             if (storedUserData) {
                 setTokenAmount(storedUserData);
             }
@@ -52,7 +53,7 @@ export default function TokenInfoBar() {
                     <div className="text-white font-semibold text-lg">{tokenAmount} MINA</div>
                     <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
                         <DialogTrigger asChild>
-                            <StyledButton className='bg-[#c69532] text-xs'>Add Fund </StyledButton>
+                            <StyledButton className='bg-[#c69532] text-xs'><span className="flex items-center gap-3"><IoMdAdd />Add Fund</span> </StyledButton>
                         </DialogTrigger>
                         <DialogContent className=" w-fit">
                             <AddFundPopUp openHandler={openHandler} accounts={accounts} balance={balance} setBalance={setBalance} />
