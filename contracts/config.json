@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "deployAliases": {}
+  "deployAliases": {
+    "minadeck": {
+      "networkId": "testnet",
+      "url": "https://api.minascan.io/node/devnet/v1/graphql",
+      "keyPath": "keys/minadeck.json",
+      "feepayerKeyPath": "C:\\Users\\sanus/.cache/zkapp-cli/keys/mineaccount.json",
+      "feepayerAlias": "mineaccount",
+      "fee": "0.1",
+      "smartContract": "ShuffleContract"
+    }
+  }
 }

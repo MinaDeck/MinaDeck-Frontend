@@ -1,14 +1,15 @@
-const { Field, SmartContract, state, method, proofSystem } = require('o1js');
+import { Field, SmartContract, state, State, method } from 'o1js';
 
 export class ShuffleContract extends SmartContract {
-  constructor() {
-    super();
-    this.deck = state(Array(Field), Array.from({ length: 52 }, (_, i) => new Field(i + 1)));
-    this.shuffled = state(Array(Field), []);
+
+  @state(Field) shuffled = State<Field[]>();
+
+  init() {
+    super.init();
   }
 
-  @method shuffle() {
-    const deck = this.deck.get();
+  @method async shuffle(): Promise<void> {
+    const deck = Array.from({ length: 52 }, (_, i) => new Field(i + 1));
     const shuffled = deck.slice();
 
     // Fisher-Yates shuffle algorithm
@@ -20,7 +21,7 @@ export class ShuffleContract extends SmartContract {
     this.shuffled.set(shuffled);
   }
 
-  @method getShuffledDeck() {
+  getShuffledDeck(): Field[] {
     return this.shuffled.get();
   }
 
