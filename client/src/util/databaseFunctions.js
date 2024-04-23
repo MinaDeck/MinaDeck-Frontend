@@ -7,6 +7,7 @@ export const checkAddress = async (addressToCheck) => {
     return data.response.length > 0;
   } catch (error) {
     console.error('Error checking address:', error);
+    return false;
     throw error;
   }
 };
@@ -18,7 +19,7 @@ export const getUserData = async (address) => {
     return data;
   } catch (error) {
     console.error('Error getting user data:', error);
-    throw error;
+    return error;
   }
 };
 

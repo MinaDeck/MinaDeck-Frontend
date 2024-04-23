@@ -4,7 +4,7 @@ type Transaction = Awaited<ReturnType<typeof Mina.transaction>>;
 
 // ---------------------------------------------------------------------------------------
 
-import type { ShuffleContract } from '../../contracts/src/Shuffle';
+import type { ShuffleContract } from '../../../contracts/src/Shuffle';
 
 const state = {
   ShuffleContract: null as null | typeof ShuffleContract,
@@ -23,7 +23,7 @@ const functions = {
     Mina.setActiveInstance(Devnet);
   },
   loadContract: async (args: {}) => {
-    const { ShuffleContract } = await import('../../contracts/build/src/Shuffle.js');
+    const { ShuffleContract } = await import('../../../contracts/build/src/Shuffle.js');
     state.ShuffleContract = ShuffleContract;
   },
   compileContract: async (args: {}) => {
@@ -42,8 +42,8 @@ const functions = {
     return JSON.stringify(currentDeck);
   },
   createShuffleTransaction: async (args: {}) => {
-    const transaction = await Mina.transaction(() => {
-      state.zkapp!.shuffle();
+    const transaction = await Mina.transaction(async () => {
+      await state.zkapp!.shuffle();
     });
     state.transaction = transaction;
   },

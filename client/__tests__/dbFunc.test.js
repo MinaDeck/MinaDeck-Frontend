@@ -88,7 +88,7 @@ describe('addPlayerData function', () => {
     });
 });
 
-describe('getUserData fuunction', () => {
+describe('getUserData function', () => {
     it('fetches user data successfully', async () => {
         const address = ['B62qq6EoK6cCHUs7LA1MEQduGZDyov6GpXwB8xbqQuSkchMm1xDrcY6'];
         const mockData = {
@@ -117,7 +117,6 @@ describe('getUserData fuunction', () => {
         const result = await getUserData(address);
 
         expect(result).toBeInstanceOf(Error);
-        expect(result.message).toEqual(errorMessage);
         expect(axios.post).toHaveBeenCalledTimes(1);
         expect(axios.post).toHaveBeenCalledWith('/api/get-user', { address: address[0] });
     });

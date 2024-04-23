@@ -8,7 +8,7 @@ export class ShuffleContract extends SmartContract {
     super.init();
   }
 
-  @method async shuffle(): Promise<void> {
+  @method async shuffle() {
     const deck = Array.from({ length: 52 }, (_, i) => new Field(i + 1));
     const shuffled = deck.slice();
 
