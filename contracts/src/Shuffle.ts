@@ -1,15 +1,27 @@
-import { Field, SmartContract, state, State, method } from 'o1js';
+import { Field, SmartContract, state, State, method, Poseidon } from 'o1js';
 
 export class ShuffleContract extends SmartContract {
 
   @state(Field) shuffled = State<Field[]>();
+  @state(Field) boardCards = State<Field[]>();
+  @state(Field) playerHands = State<{ [playerId: string]: Field[] }>();
 
   init() {
     super.init();
   }
 
   @method async shuffle() {
-    const deck = Array.from({ length: 52 }, (_, i) => new Field(i + 1));
+    const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+    const values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+    const deck: Field[] = [];
+
+    for (const suit of suits) {
+      for (const value of values) {
+        const card = new Field(Poseidon.hash([new Field(suits.indexOf(suit)), new Field(values.indexOf(value))]));
+        deck.push(card);
+      }
+    }
+
     const shuffled = deck.slice();
 
     // Fisher-Yates shuffle algorithm
@@ -21,8 +33,23 @@ export class ShuffleContract extends SmartContract {
     this.shuffled.set(shuffled);
   }
 
-  getShuffledDeck(): Field[] {
-    return this.shuffled.get();
-  }
+  @method async allocateCards(playerIds: Field[]) {
+    const shuffledDeck = this.shuffled.get();
+    const tempPlayerHands: { [playerId: string]: Field[] } = {};
+    const tempBoardCards: Field[] = [];
 
+    // Deal two cards to each player
+    for (let i = 0; i < playerIds.length; i++) {
+      const playerId = Poseidon.hash(playerIds[i].toFields()).toString();
+      tempPlayerHands[playerId] = [shuffledDeck.pop()!, shuffledDeck.pop()!];
+    }
+
+    // Deal the board cards
+    for (let i = 0; i < 5; i++) {
+      tempBoardCards.push(shuffledDeck.pop()!);
+    }
+
+    this.playerHands.set(tempPlayerHands);
+    this.boardCards.set(tempBoardCards);
+  }
 }

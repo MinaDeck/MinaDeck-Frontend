@@ -14,6 +14,8 @@ jobs:
           node-version: 18
       - name: install pnpm
         run: npm install -g pnpm
+      - name: change directory
+        run: cd client
       - name: Install dependencies
         run: pnpm install # Or yarn install if you use yarn
       - name: Run tests

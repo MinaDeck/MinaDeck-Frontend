@@ -38,7 +38,7 @@ const functions = {
     state.zkapp = new state.ShuffleContract!(publicKey);
   },
   getShuffledDeck: async (args: {}) => {
-    const currentDeck = await state.zkapp!.getShuffledDeck();
+    const currentDeck = await state.zkapp!.shuffled.get();
     return JSON.stringify(currentDeck);
   },
   createShuffleTransaction: async (args: {}) => {
