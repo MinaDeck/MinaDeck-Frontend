@@ -1,10 +1,12 @@
 import { Field, SmartContract, state, State, method, Poseidon } from 'o1js';
+import { evaluateHand } from './PokerLib';
 
 export class ShuffleContract extends SmartContract {
 
   @state(Field) shuffled = State<Field[]>();
   @state(Field) boardCards = State<Field[]>();
   @state(Field) playerHands = State<{ [playerId: string]: Field[] }>();
+  @state(Field) winner = State<String>();
 
   init() {
     super.init();
@@ -51,5 +53,23 @@ export class ShuffleContract extends SmartContract {
 
     this.playerHands.set(tempPlayerHands);
     this.boardCards.set(tempBoardCards);
+  }
+
+  @method async revealWinner() {
+    const playerHands = this.playerHands.get();
+    const boardCards = this.boardCards.get();
+    const evaluatedHands: { [playerId: string]: Field } = {};
+
+    for (const playerId in playerHands) {
+      const hand = playerHands[playerId];
+      const combinedHand = [...hand, ...boardCards];
+      evaluatedHands[playerId] = new Field(evaluateHand(combinedHand));
+    }
+
+    const winnerPlayerId = Object.keys(evaluatedHands).reduce((maxPlayerId, playerId) => {
+      return evaluatedHands[playerId].greaterThan(evaluatedHands[maxPlayerId]) ? playerId : maxPlayerId;
+    });
+
+    this.winner.set(winnerPlayerId);
   }
 }
