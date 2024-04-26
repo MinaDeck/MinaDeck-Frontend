@@ -1,12 +1,12 @@
-import { Field, SmartContract, state, State, method, Poseidon } from 'o1js';
-import { evaluateHand } from './PokerLib';
+import { Field, SmartContract, state, State, method, Poseidon, UInt64, provable } from 'o1js';
+import { evaluateHand } from './PokerLib.js';
 
 export class ShuffleContract extends SmartContract {
 
   @state(Field) shuffled = State<Field[]>();
   @state(Field) boardCards = State<Field[]>();
   @state(Field) playerHands = State<{ [playerId: string]: Field[] }>();
-  @state(Field) winner = State<String>();
+  @state(Field) winner = State<String[]>();
 
   init() {
     super.init();
@@ -35,14 +35,14 @@ export class ShuffleContract extends SmartContract {
     this.shuffled.set(shuffled);
   }
 
-  @method async allocateCards(playerIds: Field[]) {
+  @method async allocateCards(playerIds: String[]) {
     const shuffledDeck = this.shuffled.get();
     const tempPlayerHands: { [playerId: string]: Field[] } = {};
     const tempBoardCards: Field[] = [];
 
     // Deal two cards to each player
     for (let i = 0; i < playerIds.length; i++) {
-      const playerId = Poseidon.hash(playerIds[i].toFields()).toString();
+      const playerId = playerIds[i].toString();
       tempPlayerHands[playerId] = [shuffledDeck.pop()!, shuffledDeck.pop()!];
     }
 
@@ -66,10 +66,25 @@ export class ShuffleContract extends SmartContract {
       evaluatedHands[playerId] = new Field(evaluateHand(combinedHand));
     }
 
-    const winnerPlayerId = Object.keys(evaluatedHands).reduce((maxPlayerId, playerId) => {
-      return evaluatedHands[playerId].greaterThan(evaluatedHands[maxPlayerId]) ? playerId : maxPlayerId;
+    const maxField = Object.values(evaluatedHands).reduce((max, field) => {
+      return field.greaterThan(max) ? field : max;
     });
 
-    this.winner.set(winnerPlayerId);
+    const winners = Object.keys(evaluatedHands).filter((playerId) => {
+      return evaluatedHands[playerId].equals(maxField);
+    });
+
+    this.winner.set(winners);
+  }
+
+  @method async payout(amount: UInt64, playerIds: String) {
+    const winners = this.winner.get();
+
+    if (winners.includes(playerIds.toString())) {
+      this.send({ to: this.sender.getAndRequireSignature(), amount });
+    } else {
+      this.emitEvent('Payout', 'Player did not win')
+    }
+
   }
 }
