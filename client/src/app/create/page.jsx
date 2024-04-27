@@ -36,7 +36,7 @@ export default function CreateGamePage() {
 
     useEffect(() => {
         if (gameServer.data && apiCall == 0) {
-            gameServer.send(JSON.stringify({ user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false }] }));
+            gameServer.send(JSON.stringify({ user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: true }] }));
             setApiCall(1);
         }
     }, [gameServer.data]);

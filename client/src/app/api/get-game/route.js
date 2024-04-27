@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../util/db";
 
 export async function POST(req) {
-    const { address } = await req.json();
+    const { gameId } = await req.json();
 
-    const response = await prisma.user.findMany({
-        where: { address: address },
+    const response = await prisma.game.findMany({
+        where: { gameId: gameId },
     })
 
     if (response) {

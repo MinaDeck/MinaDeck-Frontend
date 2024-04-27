@@ -23,6 +23,17 @@ export const getUserData = async (address) => {
   }
 };
 
+export const getGameData = async (gameId) => {
+  try {
+    const response = await axios.post('/api/get-game', { gameId: gameId });
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error('Error getting game data:', error);
+    return error;
+  }
+};
+
 export const addPlayerData = async (address, formData) => {
   try {
     const response = await axios.post('/api/add-user', {

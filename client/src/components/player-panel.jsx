@@ -100,7 +100,7 @@ function Player1() {
     return [result, remaining];
   }
 
-  console.log(gamePlayerInfo)
+  console.log(gamePlayerInfo.isBanker)
   console.log("game user is :- ", gamePlayerInfo)
 
   const x = 360, y = 470
@@ -116,26 +116,27 @@ function Player1() {
     >
       {
         true && <div className='relative px-6 py-1 text-center'>
-          {
+          {/* {
             [0, 3, 4, 5].includes(gamePlayerInfo?.state) && <StyledButton
               roundedStyle='rounded-full'
               className='bg-[#ff9000]'
-              // onClick={() => { gameServer.send({ type: 0, currRound: gameRoom.currRound }) }}
+            // onClick={() => { gameServer.send({ type: 0, currRound: gameRoom.currRound }) }}
+            >READY</StyledButton>
+          } */}
+          {
+            !gamePlayerInfo?.[0]?.isBanker && gameRoom.state == "ready" && <StyledButton
+              roundedStyle='rounded-full'
+              className='bg-[#ff9000]'
             >READY</StyledButton>
           }
-          {
-            // gamePlayerInfo.isBanker && gameRoom.state == "ready" && <StyledButton roundedStyle='rounded-full' onClick={() => console.log("start game")}>START</StyledButton>
-            !gamePlayerInfo?.isBanker && <StyledButton roundedStyle='rounded-full' onClick={() => distributeCard(shuffledCard, gameSize)}>START</StyledButton>
-          }
 
-          {/* <StyledButton className='bg-[rgb(255,144,0)]' roundedStyle='rounded-full'
-            onClick={ async () => { gameServer.send({ type: 2, currRound: gameRoom.currRound }) } }
-            disabled={gameCountdown?.userId !== gamePlayerInfo?.userId}
-          >CONTINUE</StyledButton> */}
+          {
+            (gamePlayerInfo?.[0]?.isBanker) && <StyledButton roundedStyle='rounded-full' onClick={() => distributeCard(shuffledCard, gameSize)}>SHUFFLE & START</StyledButton>
+          }
 
           {gamePlayerInfo?.state === 2 && !gamePlayerInfo?.isLookCard &&
             <StyledButton className='bg-[rgb(1,145,186)]' roundedStyle='rounded-full'
-              // onClick={async () => { gameServer.send({ type: 2, currRound: gameRoom.currRound }) }}
+            // onClick={async () => { gameServer.send({ type: 2, currRound: gameRoom.currRound }) }}
             // disabled={gameCountdown?.userId !== gamePlayerInfo?.userId}
             >CHECK</StyledButton>
           }
