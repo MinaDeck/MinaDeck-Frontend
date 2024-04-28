@@ -17,7 +17,7 @@ import { useGameData } from '@/hooks/useGameData';
 import { useUserData } from '@/hooks/useUserData'
 
 export default function GameRoom({ gameId }) {
-  const { gameData } = useGameData();
+  const { gameData } = useGameData(gameId);
   console.log("gameData on room:", gameData);
 
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)

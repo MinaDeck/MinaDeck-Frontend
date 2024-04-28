@@ -100,7 +100,7 @@ function Player1() {
     return [result, remaining];
   }
 
-  console.log(gamePlayerInfo.isBanker)
+  console.log(gamePlayerInfo?.isBanker)
   console.log("game user is :- ", gamePlayerInfo)
 
   const x = 360, y = 470

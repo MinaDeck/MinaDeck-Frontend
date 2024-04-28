@@ -1,13 +1,22 @@
 // Enable client-side only features in Next.js
 'use client'
 
+import { getGameData } from '@/util/databaseFunctions';
 // Import hooks from React
 import { useState, useEffect } from 'react';
 
 // Custom hook for managing game data
-export function useGameData() {
+export function useGameData(gameId) {
     // State to store game data with initial default values
     const [gameData, setGameData] = useState({ size: 0, lowBetChips: 0, topBetChips: 0, totalRounds: 0, gameId: '' });
+
+    const fetchGameData = async() => {
+        const data = await getGameData(gameId)
+
+        console.log(data?.response)
+        setGameData({ size: data?.response[0].tableSize, lowBetChips: data?.response[0].lowBetChips, topBetChips: data?.response[0].topBetChips, totalRounds: data?.response[0].totalRounds, gameId: gameId })
+
+    }
 
     // useEffect hook to load game data from local storage when the component mounts
     useEffect(() => {
@@ -18,6 +27,8 @@ export function useGameData() {
         if (storedGameData) {
             setGameData(prevGameData => ({ ...prevGameData, ...JSON.parse(storedGameData) }));
             console.log('Game data loaded from local storage 2', JSON.parse(storedGameData));
+        } else{
+            fetchGameData()
         }
     }, []); // Empty dependency array to ensure this effect runs only once on mount
 
