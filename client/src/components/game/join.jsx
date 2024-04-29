@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import { useGameData } from '../../hooks/useGameData';
 
-export default function CheckProfile() {
+export default function JoinGame() {
 
     const [walletConnected, setWalletConnected] = useState(false);
     const [gameId, setGameId] = useState("")
@@ -77,7 +77,7 @@ export default function CheckProfile() {
         }
     }, [userData]);
 
-    console.log(userData)
+    console.log(profile == true && gameId != "")
 
     const openHandler = () => {
         setOpen(false)
@@ -95,7 +95,7 @@ export default function CheckProfile() {
             <div className='absolute top-0 left-1/2 right-0 bottom-0 pr-20 py-12'>
                 <div className='relative text-center flex justify-center'>
                     <img src='/login-button-bg.png' />
-                    <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>Connect Wallet</StyledButton>
+                    <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>{accounts ? `Connected Wallet` : `Connect Wallet`}</StyledButton>
                 </div>
                 {accounts &&
                     <div className='flex flex-col items-center'>
@@ -120,7 +120,7 @@ export default function CheckProfile() {
                                 </div>
                             }
                             <input onChange={(e) => setGameId(e.target.value)} className='w-full border-2 mt-3 border-[#00b69a] bg-gray-600/60 rounded-md p-5 py-2 text-white' placeholder='enter the code' />
-                            <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-3' onClick={() => router.push(`/game?gameId=${gameId}`)} disabled={!profile && gameId == ""}>Enter Game </StyledButton>
+                            <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-3' onClick={() => router.push(`/game?gameId=${gameId}`)} disabled={!(profile == true && gameId != "")}>Enter Game </StyledButton>
                         </div>
 
                     </div>

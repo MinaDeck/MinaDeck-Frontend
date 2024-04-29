@@ -86,7 +86,7 @@ export default function PlayGame() {
                 <div className='absolute top-0 left-1/2 right-0 bottom-0 pr-20 py-12'>
                     <div className='relative text-center flex justify-center'>
                         <img src='/login-button-bg.png' />
-                        <StyledButton data-testid="connect" roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>Connect Wallet</StyledButton>
+                        <StyledButton data-testid="connect" roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>{accounts ? `Connected Wallet` : `Connect Wallet`}</StyledButton>
                     </div>
                     {accounts &&
                         <div className='flex flex-col items-center'>
@@ -108,10 +108,11 @@ export default function PlayGame() {
                                     </div>
                                 }
                                 <StyledButton onClick={() => router.push("/create")} disabled={userData.userId == "" ? true : false} className='w-fit bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Table </StyledButton>
-                            </div> }
+                                <StyledButton onClick={() => router.push("/game/join")} disabled={userData.userId == "" ? true : false} className='w-fit bg-[#00b69a] bottom-4 text-2xl mt-6'>Join Game </StyledButton>
+                            </div>}
                             {loading &&
                                 <div className='text-white mt-2 text-2xl shadow-lg'>
-                                    wait, till we are retriving your details...
+                                    Wait, while we are retriving your details...
                                 </div>
                             }
                         </div>

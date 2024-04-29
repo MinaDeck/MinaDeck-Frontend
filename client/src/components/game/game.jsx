@@ -5,8 +5,9 @@ import { useRef, useEffect, useState } from 'react'
 import { useUserData } from '@/hooks/useUserData';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react';
+import { IoArrowBack } from "react-icons/io5";
 import TokenInfoBar from '../TokenBar';
+import Link from 'next/link';
 
 export default function Game() {
 
@@ -43,7 +44,14 @@ export default function Game() {
 
     if (!gameId || !/^[a-f\d]{8}$/i.test(gameId)) {
         // Validate gameId format
-        return <div className='text-white'>Illegal Room Number {gameId}</div>;
+        return (
+            <section className='h-screen flex flex-col items-center justify-center'>
+                <div className='text-white p-10 rounded-lg bg-gray-800/70 font-bold text-3xl'>
+                    Illegal Room Number {gameId}
+                </div>
+                <Link href="/play" className='text-white text-md hover:underline flex gap-1 hover:gap-3 transition-all items-center'><IoArrowBack /> {" "} <span>Go back to play page</span></Link>
+            </section>
+        )
     }
 
     return (

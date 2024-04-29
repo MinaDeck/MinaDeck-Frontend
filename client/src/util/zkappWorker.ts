@@ -4,7 +4,7 @@ type Transaction = Awaited<ReturnType<typeof Mina.transaction>>;
 
 // ---------------------------------------------------------------------------------------
 
-import type { ShuffleContract } from '../../../contracts/src/Shuffle';
+import type { ShuffleContract } from '../../../contracts/src/Poker';
 
 const state = {
   ShuffleContract: null as null | typeof ShuffleContract,
