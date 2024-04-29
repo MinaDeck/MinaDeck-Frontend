@@ -49,6 +49,9 @@ export default function TokenInfoBar() {
                 </h2>
             </Link>
             <div className="flex gap-4 items-center">
+                <Link href="/play" className="text-white font-semibold text-lg shadow-md hover:underline p-1 rounded-md cursor-pointer">Play</Link >
+                <Link href="/game/create" className="text-white font-semibold text-lg shadow-md hover:underline p-1 rounded-md cursor-pointer">Create</Link >
+                <Link href="/game/join" className="text-white font-semibold text-lg shadow-md hover:underline p-1 rounded-md cursor-pointer">Join</Link >
                 <span className="flex items-center gap-3 border-[1px] p-2 px-4 rounded-xl">
                     <div className="text-white font-semibold text-lg">{tokenAmount} MINA</div>
                     <Dialog open={open} onOpenChange={(state) => setOpen(state)}>

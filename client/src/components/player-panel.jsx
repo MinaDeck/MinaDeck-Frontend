@@ -124,7 +124,7 @@ function Player1() {
             >READY</StyledButton>
           } */}
           {
-            !gamePlayerInfo?.[0]?.isBanker && gameRoom.state == "ready" && <StyledButton
+            !gamePlayerInfo?.[0]?.isBanker && <StyledButton
               roundedStyle='rounded-full'
               className='bg-[#ff9000]'
             >READY</StyledButton>

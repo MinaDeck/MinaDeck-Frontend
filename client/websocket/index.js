@@ -24,7 +24,12 @@ wss.on('connection', function connection(ws, req) {
 
       if (existingUserData) {
         // Append the new data to the 'user' array
-        existingUserData.user.push(...newData.user);
+        const existingUser = existingUserData.user.find(user => user.userId === newData.user[0].userId);
+
+        if (!existingUser) {
+          // If the new user data doesn't exist, append it to the 'user' array
+          existingUserData.user.push(...newData.user);
+        }
       } else {
         // Insert the complete object into gameData
         gameData.push(newData);

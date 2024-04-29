@@ -45,7 +45,11 @@ export default function AddFundPopUp({ openHandler, balance, setBalance }) {
         if (!ISSERVER) {
             setBalance(amount)
             const previousAmount = localStorage.getItem('amount')
-            localStorage.setItem('amount', parseInt(previousAmount) + amount);
+            if (previousAmount) {
+                localStorage.setItem('amount', parseInt(previousAmount) + amount);
+            } else {
+                localStorage.setItem('amount', amount);
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import { useUserData } from '@/hooks/useUserData';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation'
 import { useGameData } from '../../hooks/useGameData';
+import { useGameRoom } from '@/hooks/useGameRoom';
 
 export default function JoinGame() {
 
@@ -24,14 +25,30 @@ export default function JoinGame() {
     const [open, setOpen] = useState(false);
     const [disabled, setDisabled] = useState(true)
     const { gameData } = useGameData(gameId)
+    const [loading, setLoading] = useState(false)
+    const [joining, setJoining] = useState(false)
+
+    const gameServer = useGameRoom(gameId)
 
     const { userData, setUserData } = useUserData();
 
     const dealerRef = useRef(null);
     const router = useRouter()
 
-    const searchParams = useSearchParams();
-    // Get the search params object
+    console.log(gameServer)
+
+    const joinGame = () => {
+        if (userData) {
+            setJoining(true)
+            gameServer.send(JSON.stringify({ user: [{ userId: userData.id, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false }] }));
+
+            setTimeout(() => {
+                router.push(`/game?gameId=${gameId}`);
+            }, 1500);
+
+            setJoining(false)
+        }
+    }
 
     const connectWallet = async () => {
         try {
@@ -45,9 +62,10 @@ export default function JoinGame() {
             }
             if (collectAccounts) {
                 setWalletConnected(true)
-                console.log("check address", await checkAddress(collectAccounts))
+                setLoading(true)
                 checkAddress(collectAccounts).then((res) => {
                     console.log("res:", res);
+                    setLoading(false)
                     if (res) {
                         setProfile(true)
                     }
@@ -95,34 +113,35 @@ export default function JoinGame() {
             <div className='absolute top-0 left-1/2 right-0 bottom-0 pr-20 py-12'>
                 <div className='relative text-center flex justify-center'>
                     <img src='/login-button-bg.png' />
-                    <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2' onClick={connectWallet}>{accounts ? `Connected Wallet` : `Connect Wallet`}</StyledButton>
+                    <StyledButton roundedStyle='rounded-full' className='absolute bg-[#ff9000] bottom-4 text-2xl left-1/2 -translate-x-1/2 cursor-none' onClick={connectWallet}>{accounts ? `Connected Wallet` : `Connect Wallet`}</StyledButton>
                 </div>
                 {accounts &&
                     <div className='flex flex-col items-center'>
                         <span className='text-white mt-2 text-lg shadow-lg'>
                             Address: {accounts.toString().slice(0, 5) + '...' + accounts.toString().slice(-5)}
                         </span>
-                        {/* profile */}
-                        <div>
-                            {!profile &&
-                                <div className='flex flex-col'>
-                                    <span className='text-white mt-2 text-lg shadow-lg'>
-                                        Create Account before entering the game
-                                    </span>
-                                    <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
-                                        <DialogTrigger asChild>
-                                            <StyledButton className='bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Profile </StyledButton>
-                                        </DialogTrigger>
-                                        <DialogContent className=" w-fit">
-                                            <CreateProfilePopUp openHandler={openHandler} accounts={accounts} />
-                                        </DialogContent>
-                                    </Dialog>
-                                </div>
-                            }
-                            <input onChange={(e) => setGameId(e.target.value)} className='w-full border-2 mt-3 border-[#00b69a] bg-gray-600/60 rounded-md p-5 py-2 text-white' placeholder='enter the code' />
-                            <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-3' onClick={() => router.push(`/game?gameId=${gameId}`)} disabled={!(profile == true && gameId != "")}>Enter Game </StyledButton>
-                        </div>
-
+                        {(!profile && loading)
+                            ? <div className='text-white text-lg hover:underline mt-4'>Please wait, While we fetch your data...</div>
+                            : <div>
+                                {!profile &&
+                                    <div className='flex flex-col'>
+                                        <span className='text-white mt-2 text-lg shadow-lg'>
+                                            Create Account before entering the game
+                                        </span>
+                                        <Dialog open={open} onOpenChange={(state) => setOpen(state)}>
+                                            <DialogTrigger asChild>
+                                                <StyledButton className='bg-[#00b69a] bottom-4 text-2xl mt-6'>Create Profile </StyledButton>
+                                            </DialogTrigger>
+                                            <DialogContent className=" w-fit">
+                                                <CreateProfilePopUp openHandler={openHandler} accounts={accounts} />
+                                            </DialogContent>
+                                        </Dialog>
+                                    </div>
+                                }
+                                <input onChange={(e) => setGameId(e.target.value)} className='w-full border-2 mt-3 border-[#00b69a] bg-gray-600/60 rounded-md p-5 py-2 text-white' placeholder='enter the code' />
+                                <StyledButton className='w-full bg-[#00b69a] bottom-4 text-2xl mt-3' onClick={() => joinGame()} disabled={!(profile == true && gameId != "")}>{joining ? `Joining Game...` : `Enter Game`} </StyledButton>
+                            </div>
+                        }
                     </div>
                 }
             </div>
