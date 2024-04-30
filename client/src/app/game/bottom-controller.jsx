@@ -33,7 +33,9 @@ function BlankChip({ index = 0, checked, setChecked }) {
   const { data: currentChipIndex, mutate: currentChipIndexMutate } = useSWR('local:currentChipIndex', stateFetcher)
 
   const value = listBetChips?.[index]
+  const amount = localStorage.getItem('amount')
   const allowControl = value > gameCurrentBetChips
+  console.log(listBetChips)
   return (
     <div
       className={classNames(
@@ -84,7 +86,7 @@ export default function BottomController() {
       <div className='absolute left-2 bottom-2 right-2 flex gap-2 items-center justify-center'>
         <div className='items-fold'>
           <StyledButton className='bg-red-600 mr-40'
-            disabled={!(gameRoom?.state === 1 && gamePlayerInfo?.state === 2)}
+            // disabled={!(gameRoom?.state === 1 && gamePlayerInfo?.state === 2)}
             onClick={() => {
               // gameServer.send({ type: 3, currRound: gameRoom.currRound, isAutoBet: gamePlayerInfo.isAutoBet })
             }}
@@ -93,7 +95,7 @@ export default function BottomController() {
         <div>
           <StyledButton className={classNames('bg-[rgb(255,150,0)] transition-transform', showChipPanel ? 'translate-y-40' : 'translate-y-0')}
             onClick={ () => { stateFetcher('local:showChipPanel', true).then(showChipPanelMutate) } }
-            disabled={gamePlayerInfo?.isAutoBet || !allowControl}
+            // disabled={gamePlayerInfo?.isAutoBet || !allowControl}
           ><div className='h-10 inline-flex items-center'>RAISE</div></StyledButton>
         </div>
         <div>

@@ -40,7 +40,7 @@ export default function JoinGame() {
     const joinGame = () => {
         if (userData) {
             setJoining(true)
-            gameServer.send(JSON.stringify({ user: [{ userId: userData.id, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false }] }));
+            gameServer.send(JSON.stringify({ user: [{ userId: userData.id, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: false, isReady: false }] }));
 
             setTimeout(() => {
                 router.push(`/game?gameId=${gameId}`);

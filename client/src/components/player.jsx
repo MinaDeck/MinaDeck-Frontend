@@ -4,7 +4,9 @@ import classNames from 'classnames'
 import Avatar from './avatar'
 import PlayingCard from './cards'
 import { displayAddress } from '@/util'
-import { useCurrentGameRoom } from '@/hooks/useGameRoom'
+import { useUserData } from '@/hooks/useUserData'
+import StyledButton from './styled-button'
+import {useState} from 'react'
 
 // Defines the Player component with props for avatar, user, game state, etc.
 export default function Player({
@@ -23,6 +25,9 @@ export default function Player({
   const showCountdown = user.userId === gameCountdown?.userId
   console.log(user)
 
+  const {userData} = useUserData()
+  console.log(userData.address)
+
   const { data: gamePK, mutate: gamePKMutate } = useSWR('local:gamePK', stateFetcher)
   const { data: gamePlayerInfo, mutate: gamePlayerInfoMutate } = useSWR('local:gamePlayerInfo', stateFetcher)
   const { data: gameCurrentBetChips, mutate: gameCurrentBetChipsMutate } = useSWR('local:gameCurrentBetChips', stateFetcher)
@@ -31,6 +36,7 @@ export default function Player({
   // const gameServer = useCurrentGameRoom()
   const { data: gameRoom, mutate: gameRoomMutate } = useSWR('local:gameRoom', stateFetcher)
   const { data: allowPK, mutate: allowPKMutate } = useSWR('local:allowPK', stateFetcher)
+  const [ready, setReady] = useState(false)
 
 
   return (
@@ -59,7 +65,7 @@ export default function Player({
         </div>
         <div className='flex-none w-0'>
           <Avatar showAuto={showAuto} user={user} userId={user.userId} headPic={user.headPic} iconName={user.userId ? avatar : 0} dealer={user.isBanker}
-            showCountdown={showCountdown} startTime={gameCountdown?.startTime} endTime={gameCountdown?.endTime}
+            showCountdown={showCountdown} startTime={gameCountdown?.startTime} endTime={gameCountdown?.endTime} ready={ready}
           >
             {
               user.userId && <>
@@ -91,8 +97,8 @@ export default function Player({
       {
         user.userId && <div className={classNames('absolute -top-8', rightSide ? '-left-52' : 'left-64')}>
           <div className={classNames('flex scale-75 pointer-events-none', user.state === 0 || gameRoom.state === 0 ? 'invisible2' : '')}>
-            <PlayingCard value={cards?.[0]} back={user.userId ? 'back0' : 'back2'} className={classNames('', isCurrentPlayer ? '' : 'w-10')} />
-            <PlayingCard value={cards?.[1]} back={user.userId ? 'back0' : 'back2'} className={classNames('', isCurrentPlayer ? '' : 'w-10')} />
+            <PlayingCard value={cards?.[0]} back={user.userId ? 'back0' : 'back2'} className={classNames('', (user?.address == userData?.address) ? '' : 'w-10')} />
+            <PlayingCard value={cards?.[1]} back={user.userId ? 'back0' : 'back2'} className={classNames('', (user?.address == userData?.address) ? '' : 'w-10')} />
           </div>
           {allowPK && showPK && <div className='absolute cursor-pointer border-[#00ffcc] text-[#00ffcc] font-black animate-pulse -inset-x-5 inset-y-0 rounded-3xl border-[6px] translate-x-5'
             onClick={() => {
@@ -115,6 +121,16 @@ export default function Player({
             {user.state === 5 && <PlayerStateText fill='rgb(255,150,0)'>WIN</PlayerStateText>}
             {user.state === 6 && <PlayerStateText fill='rgb(255,150,0)'>CHECK</PlayerStateText>}
           </div>
+          {
+            (!user?.isBanker && user?.address == userData?.address) && <StyledButton
+              roundedStyle='rounded-full'
+              className={!ready ? `bg-[#ff9000]` : `bg-[#2d9f2b]`}
+              onClick={() => setReady(!ready)}
+            >READY</StyledButton>
+          }
+          {
+            (user?.isBanker && user?.address == userData?.address) && <StyledButton roundedStyle='rounded-full' onClick={() => distributeCard(shuffledCard, gameSize)}>SHUFFLE & START</StyledButton>
+          }
           {children}
         </div>
       }

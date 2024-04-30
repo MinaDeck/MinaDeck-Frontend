@@ -36,7 +36,10 @@ export default function CreateGamePage() {
 
     useEffect(() => {
         if (gameServer.data && apiCall == 0) {
-            gameServer.send(JSON.stringify({ user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: true }] }));
+            gameServer.send(JSON.stringify({
+                user: [{ userId: userData.userId, name: userData.userName, address: userData.address, userName: userData.userName, isBanker: true, isReady: true }],
+                game: [{ gameId: gameId, size: minimum, lowBetChips: lowBetChips, topBetChips: topBetChips, totalRounds: totalRounds, state: "not started" }]
+            }));
             setApiCall(1);
         }
     }, [gameServer.data]);

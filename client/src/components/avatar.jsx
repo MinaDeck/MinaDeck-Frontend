@@ -29,6 +29,7 @@ export default function Avatar({
   endTime = 0,
   hiascent = false, // Show Hiascent logo
   showAuto = true, // Show robot icon for autoplay
+  ready = false, // Show ready status
   children,
 }) {
 
@@ -67,6 +68,8 @@ export default function Avatar({
       {user?.isAutoBet && showAuto && <img className='absolute -left-2 -top-2 w-8 h-auto' src='/avatar-robot.png' />}
 
       {dealer && <img className='absolute -right-2 -top-2' src='/dealer-icon.png' />}
+
+      {ready && <img className='absolute -right-2 -top-2 w-6' src='/tick.png' />}
 
       {hiascent && <img className='absolute top-0 left-0' src='hiascent.png' />}
 

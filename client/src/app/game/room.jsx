@@ -62,6 +62,7 @@ export default function GameRoom({ gameId }) {
 
     if (!loading) {
       stateFetcher('local:gamePlayerInfo', state[0]?.user).then(gamePlayerInfoMutate)
+      stateFetcher('local:listBetChips', [10, 100, 1000, 10000, 100000]).then(listBetChipsMutate)
     }
 
   }, [gameServer.data, loading])

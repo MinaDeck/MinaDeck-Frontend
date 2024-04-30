@@ -123,16 +123,6 @@ function Player1() {
             // onClick={() => { gameServer.send({ type: 0, currRound: gameRoom.currRound }) }}
             >READY</StyledButton>
           } */}
-          {
-            !gamePlayerInfo?.[0]?.isBanker && <StyledButton
-              roundedStyle='rounded-full'
-              className='bg-[#ff9000]'
-            >READY</StyledButton>
-          }
-
-          {
-            (gamePlayerInfo?.[0]?.isBanker) && <StyledButton roundedStyle='rounded-full' onClick={() => distributeCard(shuffledCard, gameSize)}>SHUFFLE & START</StyledButton>
-          }
 
           {gamePlayerInfo?.state === 2 && !gamePlayerInfo?.isLookCard &&
             <StyledButton className='bg-[rgb(1,145,186)]' roundedStyle='rounded-full'
