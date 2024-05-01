@@ -27,9 +27,9 @@ export const exploreWorlds = [
 ];
 
 export const startingFeatures = [
-  'Find a world that suits you and you want to enter',
-  'Enter the world by reading basmalah to be safe',
-  'No need to beat around the bush, just stay on the gas and have fun',
+  'Cash Games: Play Texas Hold\'em for real money anytime at stakes that suit your bankroll.',
+  'Tournaments: Compete in freerolls and guaranteed prize pools tournaments for players of all levels.',
+  'Sit & Go\'s: Enjoy fast-paced, single-table tournaments with a variety of buy-ins and table sizes.'
 ];
 
 export const newFeatures = [
@@ -71,19 +71,13 @@ export const insights = [
 export const socials = [
   {
     name: 'twitter',
-    url: '/homePage/twitter.svg',
+    url: '/homePage/twitter.png',
+    link: 'https://x.com/Mina_Deck?s=08'
   },
   {
-    name: 'linkedin',
-    url: '/homePage/linkedin.svg',
-  },
-  {
-    name: 'instagram',
-    url: '/homePage/instagram.svg',
-  },
-  {
-    name: 'facebook',
-    url: '/homePage/facebook.svg',
+    name: 'github',
+    url: '/homePage/github.png',
+    link: 'https://github.com/MinaDeck/MinaDeck-Frontend'
   },
 ];
 export const experiences = [

@@ -33,12 +33,15 @@ const Footer = () => (
           </p>
           <div className="flex gap-4">
             {socials.map((social) => (
-              <img
-                key={social.name}
-                src={social.url}
-                alt={social.name}
-                className="w-[24px] h-[24px] object-contain cursor-pointer"
-              />
+              <a href={social.link} target='_blank'>
+                <img
+                  key={social.name}
+                  src={social.url}
+                  alt={social.name}
+                  className="w-[30px] h-[30px] object-contain cursor-pointer"
+                />
+              </a>
+
             ))}
           </div>
         </div>
