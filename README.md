@@ -1,4 +1,4 @@
-# Mina zkApp: Mina Poker
+# Mina zkApp: MinaDeck
 
 ## Overview
 
